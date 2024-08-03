@@ -6,16 +6,20 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
 
     var body: some View {
-        Text("hello world")
+        TabView {
+            ItemListView()
+                .tabItem { Image(systemName: "checkmark.rectangle.stack") }
+                .tag(1)
+        }
     }
+
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: ItemList.self, inMemory: true)
 }
