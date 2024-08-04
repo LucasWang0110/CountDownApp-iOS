@@ -42,7 +42,9 @@ struct ItemListView: View {
                 //item list section
                 Section(content: {
                     ForEach(itemList) { item in
-                        ListRow(itemList: item)
+                        NavigationLink(destination: ItemListInfoView(itemList: item), label: {
+                            ListRow(itemList: item)
+                        })
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             Button("Delete", systemImage: "trash.fill", role: .destructive, action: {
                                 deleteList(itemList: item)
@@ -63,24 +65,19 @@ struct ItemListView: View {
                         .foregroundStyle(colorScheme == .light ? .black : .white)
                 })
                 .sheet(isPresented: $displayListInfoSheet, content: {
-                    ItemListInfoView(itemList: $currentList)
+                    ItemListEditView(itemList: $currentList)
                 })
                 
-                Section(content: {
-                    ForEach(items) { item in
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    }
-                }, header: {Text("Item List")})
             }
             .listSectionSpacing(10)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("New List", systemImage: "rectangle.stack.badge.plus", action: {
                         displayNewItemListSheet.toggle()
                     })
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("More", systemImage: "ellipsis.circle", action: {})
                 }
             }
             .sheet(isPresented: $displayNewItemListSheet) {
@@ -92,8 +89,6 @@ struct ItemListView: View {
     func addList() {
         withAnimation {
             let itemList = ItemList(title: "Title", themeColor: "264653", icon: "folder.fill")
-            let item = Item(timestamp: Date())
-            itemList.items.append(item)
             modelContext.insert(itemList)
         }
     }
@@ -102,10 +97,6 @@ struct ItemListView: View {
         withAnimation {
             modelContext.delete(itemList)
         }
-    }
-    
-    func addItem(itemList: ItemList) {
-        itemList.items.append(Item(timestamp: Date()))
     }
 }
 

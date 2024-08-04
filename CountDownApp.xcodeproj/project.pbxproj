@@ -22,7 +22,15 @@
 		A059AD4D2C5DEDAD00A12DAB /* SampleSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD4B2C5DEDAD00A12DAB /* SampleSymbol.swift */; };
 		A059AD4F2C5DF08600A12DAB /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD4E2C5DF08600A12DAB /* ItemListView.swift */; };
 		A059AD512C5DF6AC00A12DAB /* SampleColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD502C5DF6AC00A12DAB /* SampleColor.swift */; };
-		A059AD532C5E833800A12DAB /* ItemListInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD522C5E833800A12DAB /* ItemListInfoView.swift */; };
+		A059AD532C5E833800A12DAB /* ItemListEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD522C5E833800A12DAB /* ItemListEditView.swift */; };
+		A059AD552C5F647400A12DAB /* ItemListInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD542C5F647400A12DAB /* ItemListInfoView.swift */; };
+		A059AD572C5F649D00A12DAB /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD562C5F649D00A12DAB /* ItemRow.swift */; };
+		A059AD592C5F64D100A12DAB /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD582C5F64D100A12DAB /* CustomProgressView.swift */; };
+		A059AD5B2C5F693300A12DAB /* NewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD5A2C5F693300A12DAB /* NewItemView.swift */; };
+		A059AD5E2C5F69B200A12DAB /* SettingIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD5D2C5F69B200A12DAB /* SettingIconStyle.swift */; };
+		A059AD632C5F6A8A00A12DAB /* RepeatEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD602C5F6A8A00A12DAB /* RepeatEnum.swift */; };
+		A059AD642C5F6A8A00A12DAB /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD612C5F6A8A00A12DAB /* Priority.swift */; };
+		A059AD652C5F6A8A00A12DAB /* Remind.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD622C5F6A8A00A12DAB /* Remind.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +50,15 @@
 		A059AD4B2C5DEDAD00A12DAB /* SampleSymbol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleSymbol.swift; sourceTree = "<group>"; };
 		A059AD4E2C5DF08600A12DAB /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
 		A059AD502C5DF6AC00A12DAB /* SampleColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleColor.swift; sourceTree = "<group>"; };
-		A059AD522C5E833800A12DAB /* ItemListInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListInfoView.swift; sourceTree = "<group>"; };
+		A059AD522C5E833800A12DAB /* ItemListEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListEditView.swift; sourceTree = "<group>"; };
+		A059AD542C5F647400A12DAB /* ItemListInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListInfoView.swift; sourceTree = "<group>"; };
+		A059AD562C5F649D00A12DAB /* ItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRow.swift; sourceTree = "<group>"; };
+		A059AD582C5F64D100A12DAB /* CustomProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
+		A059AD5A2C5F693300A12DAB /* NewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemView.swift; sourceTree = "<group>"; };
+		A059AD5D2C5F69B200A12DAB /* SettingIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingIconStyle.swift; sourceTree = "<group>"; };
+		A059AD602C5F6A8A00A12DAB /* RepeatEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatEnum.swift; sourceTree = "<group>"; };
+		A059AD612C5F6A8A00A12DAB /* Priority.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
+		A059AD622C5F6A8A00A12DAB /* Remind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Remind.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +91,8 @@
 		A059AD282C5BC4F900A12DAB /* CountDownApp */ = {
 			isa = PBXGroup;
 			children = (
+				A059AD5F2C5F6A8A00A12DAB /* enum */,
+				A059AD5C2C5F699100A12DAB /* style */,
 				A059AD492C5DEDAD00A12DAB /* util */,
 				A059AD402C5D393600A12DAB /* extension */,
 				A059AD3D2C5D387700A12DAB /* component */,
@@ -101,7 +119,9 @@
 			children = (
 				A059AD472C5DED6900A12DAB /* NewItemListView.swift */,
 				A059AD4E2C5DF08600A12DAB /* ItemListView.swift */,
-				A059AD522C5E833800A12DAB /* ItemListInfoView.swift */,
+				A059AD522C5E833800A12DAB /* ItemListEditView.swift */,
+				A059AD542C5F647400A12DAB /* ItemListInfoView.swift */,
+				A059AD5A2C5F693300A12DAB /* NewItemView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -118,9 +138,11 @@
 		A059AD3D2C5D387700A12DAB /* component */ = {
 			isa = PBXGroup;
 			children = (
+				A059AD582C5F64D100A12DAB /* CustomProgressView.swift */,
 				A059AD3E2C5D38A600A12DAB /* ListRow.swift */,
 				A059AD432C5DD33A00A12DAB /* ListCard.swift */,
 				A059AD452C5DD36C00A12DAB /* CircleSymbol.swift */,
+				A059AD562C5F649D00A12DAB /* ItemRow.swift */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -142,6 +164,24 @@
 			);
 			name = util;
 			path = ../../CountDown/CountDown/util;
+			sourceTree = "<group>";
+		};
+		A059AD5C2C5F699100A12DAB /* style */ = {
+			isa = PBXGroup;
+			children = (
+				A059AD5D2C5F69B200A12DAB /* SettingIconStyle.swift */,
+			);
+			path = style;
+			sourceTree = "<group>";
+		};
+		A059AD5F2C5F6A8A00A12DAB /* enum */ = {
+			isa = PBXGroup;
+			children = (
+				A059AD602C5F6A8A00A12DAB /* RepeatEnum.swift */,
+				A059AD612C5F6A8A00A12DAB /* Priority.swift */,
+				A059AD622C5F6A8A00A12DAB /* Remind.swift */,
+			);
+			path = enum;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +254,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A059AD5B2C5F693300A12DAB /* NewItemView.swift in Sources */,
+				A059AD632C5F6A8A00A12DAB /* RepeatEnum.swift in Sources */,
+				A059AD642C5F6A8A00A12DAB /* Priority.swift in Sources */,
 				A059AD4D2C5DEDAD00A12DAB /* SampleSymbol.swift in Sources */,
 				A059AD3C2C5BEA2300A12DAB /* ItemList.swift in Sources */,
 				A059AD2C2C5BC4F900A12DAB /* ContentView.swift in Sources */,
@@ -221,13 +264,18 @@
 				A059AD2E2C5BC4F900A12DAB /* Item.swift in Sources */,
 				A059AD4C2C5DEDAD00A12DAB /* DateFormatter.swift in Sources */,
 				A059AD482C5DED6900A12DAB /* NewItemListView.swift in Sources */,
-				A059AD532C5E833800A12DAB /* ItemListInfoView.swift in Sources */,
+				A059AD592C5F64D100A12DAB /* CustomProgressView.swift in Sources */,
+				A059AD532C5E833800A12DAB /* ItemListEditView.swift in Sources */,
+				A059AD552C5F647400A12DAB /* ItemListInfoView.swift in Sources */,
 				A059AD512C5DF6AC00A12DAB /* SampleColor.swift in Sources */,
+				A059AD652C5F6A8A00A12DAB /* Remind.swift in Sources */,
+				A059AD5E2C5F69B200A12DAB /* SettingIconStyle.swift in Sources */,
 				A059AD4F2C5DF08600A12DAB /* ItemListView.swift in Sources */,
 				A059AD422C5D39D300A12DAB /* ColorExtension.swift in Sources */,
 				A059AD462C5DD36C00A12DAB /* CircleSymbol.swift in Sources */,
 				A059AD2A2C5BC4F900A12DAB /* CountDownAppApp.swift in Sources */,
 				A059AD3F2C5D38A600A12DAB /* ListRow.swift in Sources */,
+				A059AD572C5F649D00A12DAB /* ItemRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

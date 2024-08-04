@@ -2,113 +2,85 @@
 //  ItemListInfoView.swift
 //  CountDownApp
 //
-//  Created by lucas on 2024/8/3.
+//  Created by lucas on 2024/8/4.
 //
 
 import SwiftUI
 
 struct ItemListInfoView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.dismiss) var dismiss
     
-    @Binding var itemList: ItemList
-    @State private var listName: String = "11"
+    var itemList: ItemList
     
-    let gridItemLayout = [GridItem(.adaptive(minimum: 44))]
+    @State private var expandInprogress = true
+    @State private var expandDone = true
+    @State private var searchText = ""
+    @State private var displayNewItemSheet = false
     
     var body: some View {
-        
         NavigationStack {
-            Form {
-                Section {
-                    VStack {
-                        ZStack {
-                            Circle()
-                                .foregroundStyle(Color(hex: itemList.themeColor)!)
-                            Image(systemName: itemList.icon)
-                                .foregroundStyle(.white)
-                                .font(.system(size: 40))
-                                .bold()
-                        }
-                        .frame(width: 96, height: 96)
-                        
+            List {
+                Section(isExpanded: $expandInprogress, content: {
+                    ForEach(itemList.items, id:\.id) { item in
+                        ItemRow(item: item)
+                    }
+                }, header: {
+                    Text("In Progress")
+                        .font(.title2)
+                        .textCase(.none)
+                        .bold()
+                })
+                .padding(.vertical, 10)
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                
+                Section(isExpanded: $expandDone, content: {
+                    ForEach(1..<5, id:\.self) { item in
                         HStack {
-                            TextField("", text: $listName, prompt: Text("List name"))
-                                .font(.title)
-                                .bold()
-                                .lineLimit(1)
-                                .multilineTextAlignment(.center)
-                                .truncationMode(.tail)
-                        }
-                        .padding()
-                        .background(Color(uiColor: colorScheme == .light ? .secondarySystemBackground : .darkGray))
-                        .clipShape(.buttonBorder)
-                    }
-                }
-                
-                Section {
-                    LazyVGrid(columns: gridItemLayout, spacing: 10) {
-                        ForEach(sampleColors, id: \.self) { color in
-                            ZStack {
-                                Circle()
-                                    .stroke(
-                                        .gray.opacity(itemList.themeColor == color.toHex()! ? 0.3 : 0),
-                                        lineWidth: 4)
-                                Circle()
-                                    .fill(color)
-                                    .frame(width: 38)
+                            VStack(alignment: .leading) {
+                                Text("item name")
+                                    .font(.title2)
+                                Text("some remark")
+                                    .font(.subheadline)
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
+                                    .foregroundStyle(.gray)
                             }
-                            .onTapGesture {
-                                itemList.themeColor = color.toHex()!
-                            }
+                            Spacer()
+                            Image(systemName: "checkmark.circle")
+                                .foregroundStyle(.green)
+                                .font(.title2)
                         }
                     }
-                }
-                
-                Section {
-                    LazyVGrid(columns: gridItemLayout, spacing: 10) {
-                        ForEach(sampleSymbols, id: \.self) { symbol in
-                            ZStack {
-                                Circle()
-                                    .stroke(
-                                        .gray.opacity(itemList.icon == symbol ? 0.3 : 0),
-                                        lineWidth: 4)
-                                Button(action: {
-                                    itemList.icon = symbol
-                                }, label: {
-                                    Image(systemName: symbol)
-                                        .foregroundStyle( colorScheme == .light ? .gray : .white)
-                                })
-                                .buttonStyle(.bordered)
-                                .clipShape(Circle())
-                            }
-                        }
-                    }
-                }
+                }, header: {
+                    Text("Done")
+                        .font(.title2)
+                        .textCase(.none)
+                        .bold()
+                        .listRowInsets(.init(top: 20, leading: 0, bottom: 20, trailing: 0))
+                })
             }
-            .listSectionSpacing(20)
-            .navigationTitle(Text("New list"))
-            .navigationBarTitleDisplayMode(.inline)
+            .listStyle(.sidebar)
+            .navigationTitle(itemList.title)
+            .navigationBarTitleDisplayMode(.large)
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel", action: {
-                        dismiss()
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Add Item", systemImage: "note.text.badge.plus", action: {
+                        displayNewItemSheet.toggle()
                     })
+                    .sheet(isPresented: $displayNewItemSheet) {
+                        NewItemView(itemList: itemList)
+                    }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done", action: {
-                        dismiss()
-                    })
+                    Button("More", systemImage: "ellipsis.circle", action: {})
                 }
-            }
-            .onAppear {
-                listName = itemList.title
             }
         }
     }
 }
 
 #Preview {
-    ItemListInfoView(itemList: .constant(ItemList.sampleData))
+    ItemListInfoView(itemList: ItemList.sampleData)
 }
