@@ -25,10 +25,12 @@ final class Item: Identifiable {
     var priority: Priority
     var parentListId: String
     
+    var isDone: Bool = false
+    
     var createTime: Date
     var updateTime: Date
     
-    init(title: String, remark: String, allDay: Bool, startTime: Date, endTime: Date, remind: Remind, repeatInfo: RepeatEnum, flag: Bool, priority: Priority, parentListId: String, createTime: Date, updateTime: Date) {
+    init(title: String, remark: String, allDay: Bool, startTime: Date, endTime: Date, remind: Remind, repeatInfo: RepeatEnum, flag: Bool, priority: Priority, parentListId: String, isDone: Bool, createTime: Date, updateTime: Date) {
         self.id = UUID().uuidString
         self.title = title
         self.remark = remark
@@ -40,9 +42,23 @@ final class Item: Identifiable {
         self.flag = flag
         self.priority = priority
         self.parentListId = parentListId
+        self.isDone = isDone
         self.createTime = createTime
         self.updateTime = updateTime
     }
     
-    static var sampleDate = Item(title: "item title", remark: "item remark", allDay: true, startTime: Calendar.current.date(from: DateComponents(year: 2023, month: 7, day: 10, hour: 12, minute: 0, second: 0))!, endTime: Calendar.current.date(from: DateComponents(year: 2025, month: 10, day: 21, hour: 12, minute: 0, second: 0))!, remind: Remind.none, repeatInfo: RepeatEnum.none, flag: true, priority: Priority.none, parentListId: "", createTime: Date(), updateTime: Date())
+    static var sampleData = Item(title: "item title", remark: "item remark", allDay: true, startTime: Calendar.current.date(from: DateComponents(year: 2023, month: 7, day: 10, hour: 12, minute: 0, second: 0))!, endTime: Calendar.current.date(from: DateComponents(year: 2025, month: 10, day: 21, hour: 12, minute: 0, second: 0))!, remind: Remind.none, repeatInfo: RepeatEnum.none, flag: true, priority: Priority.none, parentListId: "", isDone: false, createTime: Date(), updateTime: Date())
+    
+    static var sampleOverTimeData = Item(title: "item title", remark: "item remark", allDay: true, startTime: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 10, hour: 12, minute: 0, second: 0))!, endTime: Calendar.current.date(from: DateComponents(year: 2024, month: 8, day: 1, hour: 12, minute: 0, second: 0))!, remind: Remind.none, repeatInfo: RepeatEnum.none, flag: true, priority: Priority.none, parentListId: "", isDone: false, createTime: Date(), updateTime: Date())
+    
+    static var sampleDoneData: Item = Item(title: "item title", remark: "item remark", allDay: true, startTime: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 10, hour: 12, minute: 0, second: 0))!, endTime: Calendar.current.date(from: DateComponents(year: 2024, month: 8, day: 1, hour: 12, minute: 0, second: 0))!, remind: Remind.none, repeatInfo: RepeatEnum.none, flag: true, priority: Priority.none, parentListId: "", isDone: true, createTime: Date(), updateTime: Date())
+    
+    func isInprogress() -> Bool {
+        let now = Date()
+        return !isDone && now >= startTime && now < endTime
+    }
+    
+    func isOverTime() -> Bool {
+        !isDone && Date() > endTime
+    }
 }

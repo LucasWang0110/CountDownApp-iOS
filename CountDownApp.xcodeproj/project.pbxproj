@@ -31,6 +31,9 @@
 		A059AD632C5F6A8A00A12DAB /* RepeatEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD602C5F6A8A00A12DAB /* RepeatEnum.swift */; };
 		A059AD642C5F6A8A00A12DAB /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD612C5F6A8A00A12DAB /* Priority.swift */; };
 		A059AD652C5F6A8A00A12DAB /* Remind.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD622C5F6A8A00A12DAB /* Remind.swift */; };
+		A059AD672C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD662C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift */; };
+		A059AD692C6128CD00A12DAB /* OverTimeItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD682C6128CD00A12DAB /* OverTimeItemRow.swift */; };
+		A059AD6B2C612BFB00A12DAB /* DoneItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD6A2C612BFB00A12DAB /* DoneItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +62,9 @@
 		A059AD602C5F6A8A00A12DAB /* RepeatEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatEnum.swift; sourceTree = "<group>"; };
 		A059AD612C5F6A8A00A12DAB /* Priority.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
 		A059AD622C5F6A8A00A12DAB /* Remind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Remind.swift; sourceTree = "<group>"; };
+		A059AD662C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStringConvertibleExtension.swift; sourceTree = "<group>"; };
+		A059AD682C6128CD00A12DAB /* OverTimeItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverTimeItemRow.swift; sourceTree = "<group>"; };
+		A059AD6A2C612BFB00A12DAB /* DoneItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +149,8 @@
 				A059AD432C5DD33A00A12DAB /* ListCard.swift */,
 				A059AD452C5DD36C00A12DAB /* CircleSymbol.swift */,
 				A059AD562C5F649D00A12DAB /* ItemRow.swift */,
+				A059AD682C6128CD00A12DAB /* OverTimeItemRow.swift */,
+				A059AD6A2C612BFB00A12DAB /* DoneItemView.swift */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -151,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				A059AD412C5D39D300A12DAB /* ColorExtension.swift */,
+				A059AD662C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -256,17 +265,20 @@
 			files = (
 				A059AD5B2C5F693300A12DAB /* NewItemView.swift in Sources */,
 				A059AD632C5F6A8A00A12DAB /* RepeatEnum.swift in Sources */,
+				A059AD692C6128CD00A12DAB /* OverTimeItemRow.swift in Sources */,
 				A059AD642C5F6A8A00A12DAB /* Priority.swift in Sources */,
 				A059AD4D2C5DEDAD00A12DAB /* SampleSymbol.swift in Sources */,
 				A059AD3C2C5BEA2300A12DAB /* ItemList.swift in Sources */,
 				A059AD2C2C5BC4F900A12DAB /* ContentView.swift in Sources */,
 				A059AD442C5DD33A00A12DAB /* ListCard.swift in Sources */,
+				A059AD6B2C612BFB00A12DAB /* DoneItemView.swift in Sources */,
 				A059AD2E2C5BC4F900A12DAB /* Item.swift in Sources */,
 				A059AD4C2C5DEDAD00A12DAB /* DateFormatter.swift in Sources */,
 				A059AD482C5DED6900A12DAB /* NewItemListView.swift in Sources */,
 				A059AD592C5F64D100A12DAB /* CustomProgressView.swift in Sources */,
 				A059AD532C5E833800A12DAB /* ItemListEditView.swift in Sources */,
 				A059AD552C5F647400A12DAB /* ItemListInfoView.swift in Sources */,
+				A059AD672C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift in Sources */,
 				A059AD512C5DF6AC00A12DAB /* SampleColor.swift in Sources */,
 				A059AD652C5F6A8A00A12DAB /* Remind.swift in Sources */,
 				A059AD5E2C5F69B200A12DAB /* SettingIconStyle.swift in Sources */,

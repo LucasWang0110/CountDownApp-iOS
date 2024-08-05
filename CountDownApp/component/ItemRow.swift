@@ -46,7 +46,6 @@ struct ItemRow: View {
                 .tint(.green)
                 
         }
-        .clipShape(RoundedRectangle(cornerRadius: 10))
         .onAppear {
             progress = caculateProgress()
         }
@@ -60,5 +59,5 @@ struct ItemRow: View {
 }
 
 #Preview {
-    ItemRow(item: Item.sampleDate)
+    ItemRow(item: Item.sampleData)
 }

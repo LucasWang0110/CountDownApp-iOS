@@ -215,11 +215,9 @@ struct NewItemView: View {
             endDateTime = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: endDateTime)!
         }
         let createTime = Date()
-        let item = Item(title: title, remark: remark, allDay: toggleAllDay, startTime: startDateTime, endTime: endDateTime, remind: selectedRemind, repeatInfo: RepeatEnum.none, flag: toggleFlag, priority: selectedPriority, parentListId: itemList.id, createTime: createTime, updateTime: createTime)
-        print(itemList.items.count)
+        let item = Item(title: title, remark: remark, allDay: toggleAllDay, startTime: startDateTime, endTime: endDateTime, remind: selectedRemind, repeatInfo: RepeatEnum.none, flag: toggleFlag, priority: selectedPriority, parentListId: itemList.id, isDone: false, createTime: createTime, updateTime: createTime)
         modelContext.insert(item)
         itemList.items.append(item)
-        print(itemList.items.count)
         // 保存上下文
         do {
             try modelContext.save()

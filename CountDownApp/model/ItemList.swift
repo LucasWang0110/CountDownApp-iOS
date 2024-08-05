@@ -28,6 +28,15 @@ class ItemList: Identifiable {
         self.updateTime = Date()
     }
     
+    func removeItem(item: Item) {
+        for (index, it) in items.enumerated() {
+            if it.id == item.id {
+                items.remove(at: index)
+                return
+            }
+        }
+    }
+    
     static var sampleData = ItemList(title: "Title", themeColor: "FF3B30", icon: "folder.fill")
     
     static var sampleList = [
