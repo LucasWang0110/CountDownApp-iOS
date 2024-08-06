@@ -29,10 +29,8 @@ struct ItemRow: View {
                     CustomProgressView(color: .green, progress: caculateProgress())
                         .frame(width: 40)
                         .overlay {
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(Color(uiColor: .lightGray))
-                                .bold()
-                                .font(.title3)
+                            Text(String(format: "%.f%%", progress * 100))
+                                .font(.caption)
                         }
                     Text(item.endTime.formatted(date: .numeric, time: .omitted))
                         .font(.caption)

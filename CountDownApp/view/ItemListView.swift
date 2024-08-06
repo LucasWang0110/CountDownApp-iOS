@@ -31,9 +31,9 @@ struct ItemListView: View {
                 Section {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 130), spacing: 20)], spacing: 20) {
                         ListCard(icon: { CircleSymbolWithText(bgColor: .blue, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Today")
-                        ListCard(icon: { CircleSymbol(bgColor: .green, symbolNmae: "calendar") }, cardValue: 12, cardTitle: "Plan")
-                        ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Plan")
-                        ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Plan")
+                        ListCard(icon: { CircleSymbol(bgColor: .green, symbolNmae: "calendar") }, cardValue: 12, cardTitle: "In progress")
+                        ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Over time")
+                        ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Flag")
                     }
                 }
                 .listRowBackground(Color.clear)
