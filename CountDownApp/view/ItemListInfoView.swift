@@ -15,7 +15,6 @@ struct ItemListInfoView: View {
     @State private var expandInprogress = true
     @State private var expandOverTime = true
     @State private var expandDone = true
-    @State private var searchText = ""
     @State private var displayNewItemSheet = false
     
     var body: some View {
@@ -35,6 +34,13 @@ struct ItemListInfoView: View {
                                         modelContext.delete(item)
                                     })
                                 })
+                                .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                    Button("Flag", systemImage: item.flag ? "flag.slash.fill" : "flag.fill", action: { item.flag = !item.flag })
+                                        .tint(.orange)
+                                })
+                                .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                    Button("Info", systemImage: "info.circle.fill", action: {  })
+                                })
                         }
                     }, header: {
                         Text("In Progress")
@@ -52,11 +58,22 @@ struct ItemListInfoView: View {
                     Section(isExpanded: $expandOverTime, content: {
                         ForEach(itemList.items.filter({ $0.isOverTime() }), id:\.id) { item in
                             OverTimeItemRow(item: item)
+                            .swipeActions(edge: .leading, allowsFullSwipe: true, content: {
+                                Button("Mark as Done", systemImage: "checkmark", action: { item.isDone = true })
+                                    .tint(Color.green)
+                            })
                             .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
                                 Button("Delete", systemImage: "trash", role: .destructive, action: {
                                     itemList.removeItem(item: item)
                                     modelContext.delete(item)
                                 })
+                            })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                Button("Flag", systemImage: item.flag ? "flag.slash.fill" : "flag.fill", action: { item.flag = !item.flag })
+                                    .tint(.orange)
+                            })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                Button("Info", systemImage: "info.circle.fill", action: {  })
                             })
                         }
                     }, header: {
@@ -79,6 +96,13 @@ struct ItemListInfoView: View {
                                     modelContext.delete(item)
                                 })
                             })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                Button("Flag", systemImage: item.flag ? "flag.slash.fill" : "flag.fill", action: { item.flag = !item.flag })
+                                    .tint(.orange)
+                            })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                Button("Info", systemImage: "info.circle.fill", action: {  })
+                            })
                         }
                     }, header: {
                         Text("Done")
@@ -93,7 +117,6 @@ struct ItemListInfoView: View {
             .listStyle(.sidebar)
             .navigationTitle(itemList.title)
             .navigationBarTitleDisplayMode(.large)
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Item", systemImage: "note.text.badge.plus", action: {

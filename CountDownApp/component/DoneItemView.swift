@@ -26,8 +26,7 @@ struct DoneItemView: View {
             Image(systemName: "checkmark.circle")
                 .foregroundStyle(.green)
                 .font(.title2)
-        }
-    }
+        }    }
 }
 
 #Preview {

@@ -17,9 +17,14 @@ struct ListRow: View {
             VStack(alignment: .leading) {
                 Text(itemList.title)
                     .font(.title3)
-                Text("3 progressing")
+                if !itemList.items.isEmpty {
+                    HStack(spacing: 10) {
+                        Text("\(itemList.items.filter({ $0.isInprogress() }).count) Ongoing")
+                        Text("\(itemList.items.filter({ $0.isOverTime() }).count) Overtime")
+                    }
                     .font(.subheadline)
                     .foregroundStyle(.gray)
+                }
             }
         }
     }

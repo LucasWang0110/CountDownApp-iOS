@@ -30,9 +30,9 @@ struct ItemListView: View {
                 //total section
                 Section {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 130), spacing: 20)], spacing: 20) {
-                        ListCard(icon: { CircleSymbolWithText(bgColor: .blue, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Today")
-                        ListCard(icon: { CircleSymbol(bgColor: .green, symbolNmae: "calendar") }, cardValue: 12, cardTitle: "In progress")
-                        ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Over time")
+                        ListCard(icon: { CircleSymbolWithText(bgColor: .green, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Ongoing")
+                        ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "clock.badge.xmark") }, cardValue: 12, cardTitle: "Overtime")
+                        ListCard(icon: { CircleSymbol(bgColor: .blue, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Total")
                         ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Flag")
                     }
                 }
@@ -44,6 +44,7 @@ struct ItemListView: View {
                     ForEach(itemList) { item in
                         NavigationLink(destination: ItemListInfoView(itemList: item), label: {
                             ListRow(itemList: item)
+                                .badge(item.items.count)
                         })
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             Button("Delete", systemImage: "trash.fill", role: .destructive, action: {

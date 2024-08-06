@@ -18,9 +18,9 @@ struct CircleSymbol: View {
             .overlay {
                 Image(systemName: symbolNmae)
                     .foregroundStyle(.white)
-                    .font(.system(size: 20))
+                    .font(.system(size: 16))
             }
-            .frame(width: 40)
+            .frame(width: 30)
     }
 }
 
@@ -31,20 +31,20 @@ struct CircleSymbolWithText: View {
     var dispalyValue: Int
     
     var body: some View {
-        CircleSymbol(bgColor: .blue, symbolNmae: "note")
+        CircleSymbol(bgColor: bgColor, symbolNmae: "note")
             .overlay {
                 Text(String(dispalyValue))
                     .offset(y: 1)
-                    .font(.system(size: 12, weight: .bold, design: .rounded))
+                    .font(.system(size: 8, weight: .bold, design: .monospaced))
                     .foregroundStyle(.white)
             }
     }
 }
 
 #Preview {
-    CircleSymbol(bgColor: .orange, symbolNmae: "folder.fill")
+//    CircleSymbol(bgColor: .orange, symbolNmae: "folder.fill")
 //    CircleSymbol(bgColor: .orange, symbolNmae: "calendar")
 //    CircleSymbol(bgColor: .orange, symbolNmae: "tray.fill")
 //    CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill")
-//    CircleSymbolWithText(bgColor: .blue, symbolNmae: "note", dispalyValue: 21)
+    CircleSymbolWithText(bgColor: .blue, symbolNmae: "note", dispalyValue: 21)
 }
