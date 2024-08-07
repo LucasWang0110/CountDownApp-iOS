@@ -11,6 +11,11 @@ struct ContentView: View {
 
     var body: some View {
         TabView {
+            
+            DaysView()
+                .tabItem { Image(systemName: "person.2.crop.square.stack.fill") }
+                .tag(0)
+            
             ItemListView()
                 .tabItem { Image(systemName: "checkmark.rectangle.stack") }
                 .tag(1)

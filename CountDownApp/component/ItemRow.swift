@@ -10,7 +10,6 @@ import SwiftUI
 struct ItemRow: View {
     
     var item: Item
-    @State private var progress: Double = 0
     
     var body: some View {
         VStack(spacing: 0) {
@@ -26,10 +25,10 @@ struct ItemRow: View {
                 }
                 Spacer()
                 VStack(spacing: 10) {
-                    CustomProgressView(color: .green, progress: caculateProgress())
+                    CustomProgressView(color: .green, progress: item.getProgress())
                         .frame(width: 40)
                         .overlay {
-                            Text(String(format: "%.f%%", progress * 100))
+                            Text(String(format: "%.f%%", item.getProgress() * 100))
                                 .font(.caption)
                         }
                     Text(item.endTime.formatted(date: .numeric, time: .omitted))
@@ -40,19 +39,10 @@ struct ItemRow: View {
             .padding(.vertical, 10)
             .background(.white)
             
-            ProgressView(value: progress, total: 1)
+            ProgressView(value: item.getProgress(), total: 1)
                 .tint(.green)
                 
         }
-        .onAppear {
-            progress = caculateProgress()
-        }
-    }
-    
-    func caculateProgress() -> Double {
-        let totalInterval = item.endTime.timeIntervalSince(item.startTime)
-        let currentInterval = Date().timeIntervalSince(item.startTime)
-        return min(max(currentInterval / totalInterval, 0), 1)
     }
 }
 

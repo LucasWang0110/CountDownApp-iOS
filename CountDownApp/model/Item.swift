@@ -47,6 +47,12 @@ final class Item: Identifiable {
         self.updateTime = updateTime
     }
     
+    func getProgress() -> Double {
+        let totalInterval = self.endTime.timeIntervalSince(self.startTime)
+        let currentInterval = Date().timeIntervalSince(self.startTime)
+        return min(max(currentInterval / totalInterval, 0), 1)
+    }
+    
     static var sampleData = Item(title: "item title", remark: "item remark", allDay: true, startTime: Calendar.current.date(from: DateComponents(year: 2023, month: 7, day: 10, hour: 12, minute: 0, second: 0))!, endTime: Calendar.current.date(from: DateComponents(year: 2025, month: 10, day: 21, hour: 12, minute: 0, second: 0))!, remind: Remind.none, repeatInfo: RepeatEnum.none, flag: true, priority: Priority.none, parentListId: "", isDone: false, createTime: Date(), updateTime: Date())
     
     static var sampleOverTimeData = Item(title: "item title", remark: "item remark", allDay: true, startTime: Calendar.current.date(from: DateComponents(year: 2024, month: 7, day: 10, hour: 12, minute: 0, second: 0))!, endTime: Calendar.current.date(from: DateComponents(year: 2024, month: 8, day: 1, hour: 12, minute: 0, second: 0))!, remind: Remind.none, repeatInfo: RepeatEnum.none, flag: true, priority: Priority.none, parentListId: "", isDone: false, createTime: Date(), updateTime: Date())

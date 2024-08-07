@@ -34,6 +34,8 @@
 		A059AD672C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD662C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift */; };
 		A059AD692C6128CD00A12DAB /* OverTimeItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD682C6128CD00A12DAB /* OverTimeItemRow.swift */; };
 		A059AD6B2C612BFB00A12DAB /* DoneItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD6A2C612BFB00A12DAB /* DoneItemView.swift */; };
+		A059AD6D2C6271DA00A12DAB /* DaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD6C2C6271DA00A12DAB /* DaysView.swift */; };
+		A059AD6F2C638DE300A12DAB /* AllItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD6E2C638DE300A12DAB /* AllItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,8 @@
 		A059AD662C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStringConvertibleExtension.swift; sourceTree = "<group>"; };
 		A059AD682C6128CD00A12DAB /* OverTimeItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverTimeItemRow.swift; sourceTree = "<group>"; };
 		A059AD6A2C612BFB00A12DAB /* DoneItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneItemView.swift; sourceTree = "<group>"; };
+		A059AD6C2C6271DA00A12DAB /* DaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysView.swift; sourceTree = "<group>"; };
+		A059AD6E2C638DE300A12DAB /* AllItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,8 @@
 				A059AD522C5E833800A12DAB /* ItemListEditView.swift */,
 				A059AD542C5F647400A12DAB /* ItemListInfoView.swift */,
 				A059AD5A2C5F693300A12DAB /* NewItemView.swift */,
+				A059AD6C2C6271DA00A12DAB /* DaysView.swift */,
+				A059AD6E2C638DE300A12DAB /* AllItemView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -268,12 +274,14 @@
 				A059AD692C6128CD00A12DAB /* OverTimeItemRow.swift in Sources */,
 				A059AD642C5F6A8A00A12DAB /* Priority.swift in Sources */,
 				A059AD4D2C5DEDAD00A12DAB /* SampleSymbol.swift in Sources */,
+				A059AD6F2C638DE300A12DAB /* AllItemView.swift in Sources */,
 				A059AD3C2C5BEA2300A12DAB /* ItemList.swift in Sources */,
 				A059AD2C2C5BC4F900A12DAB /* ContentView.swift in Sources */,
 				A059AD442C5DD33A00A12DAB /* ListCard.swift in Sources */,
 				A059AD6B2C612BFB00A12DAB /* DoneItemView.swift in Sources */,
 				A059AD2E2C5BC4F900A12DAB /* Item.swift in Sources */,
 				A059AD4C2C5DEDAD00A12DAB /* DateFormatter.swift in Sources */,
+				A059AD6D2C6271DA00A12DAB /* DaysView.swift in Sources */,
 				A059AD482C5DED6900A12DAB /* NewItemListView.swift in Sources */,
 				A059AD592C5F64D100A12DAB /* CustomProgressView.swift in Sources */,
 				A059AD532C5E833800A12DAB /* ItemListEditView.swift in Sources */,
