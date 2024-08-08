@@ -9,7 +9,22 @@ import SwiftUI
 
 struct DaysView: View {
     var body: some View {
-        Text("Hello, World!")
+        NavigationStack {
+            List {
+                
+                Section {
+                    HStack {
+                        RoundedRectangle(cornerRadius: 10).fill(.red).frame(width: 80, height: 80)
+                        VStack {
+                            Text("My Life")
+                        }
+                        Spacer()
+                        Text("100000 days")
+                    }
+                }
+                
+            }
+        }
     }
 }
 

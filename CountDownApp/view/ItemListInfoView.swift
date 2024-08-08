@@ -49,7 +49,6 @@ struct ItemListInfoView: View {
                             .bold()
                             .listRowInsets(.init(top: 20, leading: 0, bottom: 20, trailing: 0))
                     })
-                    .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                 }
@@ -57,7 +56,7 @@ struct ItemListInfoView: View {
                 if !itemList.items.filter({ $0.isOverTime() }).isEmpty {
                     Section(isExpanded: $expandOverTime, content: {
                         ForEach(itemList.items.filter({ $0.isOverTime() }), id:\.id) { item in
-                            OverTimeItemRow(item: item)
+                            ItemRow(item: item)
                             .swipeActions(edge: .leading, allowsFullSwipe: true, content: {
                                 Button("Mark as Done", systemImage: "checkmark", action: { item.isDone = true })
                                     .tint(Color.green)
@@ -84,12 +83,14 @@ struct ItemListInfoView: View {
                             .listRowInsets(.init(top: 20, leading: 0, bottom: 20, trailing: 0))
                     })
                     .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
                 }
                 
                 if !itemList.items.filter({ $0.isDone }).isEmpty {
                     Section(isExpanded: $expandDone, content: {
                         ForEach(itemList.items.filter({ $0.isDone }), id:\.id) { item in
-                            DoneItemView(item: item)
+                            ItemRow(item: item)
                             .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
                                 Button("Delete", systemImage: "trash", role: .destructive, action: {
                                     itemList.removeItem(item: item)
@@ -111,6 +112,8 @@ struct ItemListInfoView: View {
                             .bold()
                             .listRowInsets(.init(top: 20, leading: 0, bottom: 20, trailing: 0))
                     })
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
                 }
                 
             }
