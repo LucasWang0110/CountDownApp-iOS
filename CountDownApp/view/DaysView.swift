@@ -15,11 +15,15 @@ struct DaysView: View {
                 Section {
                     HStack {
                         RoundedRectangle(cornerRadius: 10).fill(.red).frame(width: 80, height: 80)
-                        VStack {
+                        VStack(spacing: 20) {
                             Text("My Life")
+                            Text(Date().formatted(date: .numeric, time: .omitted))
                         }
                         Spacer()
-                        Text("100000 days")
+                        VStack {
+                            Text("100000")
+                            Text("days")
+                        }
                     }
                 }
                 

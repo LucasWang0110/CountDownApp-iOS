@@ -21,6 +21,7 @@ struct ListCard<Content: View>: View {
                 Spacer()
                 Text(String(cardValue))
                     .font(.system(.title, design: .rounded, weight: .bold))
+                    .foregroundStyle(colorScheme == .light ? .black : .white)
             }
             Text(LocalizedStringKey(cardTitle))
                 .font(.system(size: 20, weight: .bold, design: .rounded))

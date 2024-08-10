@@ -22,58 +22,74 @@ struct ItemListView: View {
     
     @State private var currentList: ItemList = ItemList.sampleData
     @State private var displayListInfoSheet = false
+    
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         NavigationStack {
-            List {
-                
-                //total section
-                Section {
-                    Grid(horizontalSpacing: 20, verticalSpacing: 20) {
-                        GridRow {
-                            ListCard(icon: { CircleSymbolWithText(bgColor: .green, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Ongoing")
-                            ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "clock.badge.xmark") }, cardValue: 12, cardTitle: "Overtime")
-                        }
-                        GridRow {
-                            ListCard(icon: { CircleSymbol(bgColor: .blue, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Total")
-                            ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Flag")
+            ScrollView {
+                VStack (alignment: .leading, spacing: 20){
+                    //total section
+                    Section {
+                        Grid(horizontalSpacing: 20, verticalSpacing: 20) {
+                            GridRow {
+                                NavigationLink(destination: EmptyView()) {
+                                    ListCard(icon: { CircleSymbolWithText(bgColor: .green, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Ongoing")
+                                }
+                                NavigationLink(destination: EmptyView()) {
+                                    ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "clock.badge.xmark") }, cardValue: 12, cardTitle: "Overtime")
+                                }
+                            }
+                            GridRow {
+                                NavigationLink(destination: EmptyView()) {
+                                    ListCard(icon: { CircleSymbol(bgColor: .blue, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Total")
+                                }
+                                NavigationLink(destination: EmptyView()) {
+                                    ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Flag")
+                                }
+                            }
                         }
                     }
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets())
+                    
+                    //item list section
+                    Section(content: {
+                        VStack {
+                            ForEach(itemList, id:\.id) { item in
+                                NavigationLink(destination: ItemListInfoView(itemList: item), label: {
+                                    ListRow(itemList: item)
+                                })
+                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                    Button("Delete", systemImage: "trash.fill", role: .destructive, action: {
+                                        deleteList(itemList: item)
+                                    })
+                                    Button(action: {
+                                        currentList = item
+                                        displayListInfoSheet.toggle()
+                                    }, label: {
+                                        Image(systemName: "info.circle.fill")
+                                    })
+                                }
+                            }
+                        }
+                        .padding()
+                        .background(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }, header: {
+                        Text(LocalizedStringKey("我的列表"))
+                            .textCase(.none)
+                            .font(.title2)
+                            .bold()
+                            .foregroundStyle(colorScheme == .light ? .black : .white)
+                    })
+                    .sheet(isPresented: $displayListInfoSheet, content: {
+                        ItemListEditView(itemList: $currentList)
+                    })
                 }
-                .listRowBackground(Color.clear)
-                .listRowInsets(EdgeInsets())
-                
-                //item list section
-                Section(content: {
-                    ForEach(itemList) { item in
-                        NavigationLink(destination: ItemListInfoView(itemList: item), label: {
-                            ListRow(itemList: item)
-                                .badge(item.items.count)
-                        })
-                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                            Button("Delete", systemImage: "trash.fill", role: .destructive, action: {
-                                deleteList(itemList: item)
-                            })
-                            Button(action: {
-                                currentList = item
-                                displayListInfoSheet.toggle()
-                            }, label: {
-                                Image(systemName: "info.circle.fill")
-                            })
-                        }
-                    }
-                }, header: {
-                    Text(LocalizedStringKey("我的列表"))
-                        .textCase(.none)
-                        .font(.title2)
-                        .bold()
-                        .foregroundStyle(colorScheme == .light ? .black : .white)
-                })
-                .sheet(isPresented: $displayListInfoSheet, content: {
-                    ItemListEditView(itemList: $currentList)
-                })
-                
             }
+            .padding()
+            .background(Color(uiColor: .secondarySystemBackground))
             .listSectionSpacing(10)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
