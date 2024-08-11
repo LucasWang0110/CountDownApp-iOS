@@ -56,7 +56,8 @@ struct ItemListView: View {
                     //item list section
                     Section(content: {
                         VStack {
-                            ForEach(itemList, id:\.id) { item in
+                            ForEach(itemList.indices, id: \.self) { index in
+                                let item = itemList[index]
                                 NavigationLink(destination: ItemListInfoView(itemList: item), label: {
                                     ListRow(itemList: item)
                                 })
@@ -71,13 +72,18 @@ struct ItemListView: View {
                                         Image(systemName: "info.circle.fill")
                                     })
                                 }
+                                
+                                if index < itemList.count - 1 {
+                                    Divider().padding(.trailing, -20).padding(.leading, 40)
+                                }
                             }
+                            
                         }
                         .padding()
                         .background(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                     }, header: {
-                        Text(LocalizedStringKey("我的列表"))
+                        Text(LocalizedStringKey("My List"))
                             .textCase(.none)
                             .font(.title2)
                             .bold()

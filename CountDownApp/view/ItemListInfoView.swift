@@ -84,7 +84,6 @@ struct ItemListInfoView: View {
                     })
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
                 }
                 
                 if !itemList.items.filter({ $0.isDone }).isEmpty {
@@ -113,7 +112,6 @@ struct ItemListInfoView: View {
                             .listRowInsets(.init(top: 20, leading: 0, bottom: 20, trailing: 0))
                     })
                     .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
                 }
                 
             }
