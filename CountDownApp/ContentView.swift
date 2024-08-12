@@ -12,7 +12,7 @@ struct ContentView: View {
     var body: some View {
         TabView {
             
-            DaysView()
+            LifeView()
                 .tabItem { Image(systemName: "person.2.crop.square.stack.fill") }
                 .tag(0)
             

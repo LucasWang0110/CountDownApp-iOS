@@ -32,8 +32,9 @@
 		A059AD642C5F6A8A00A12DAB /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD612C5F6A8A00A12DAB /* Priority.swift */; };
 		A059AD652C5F6A8A00A12DAB /* Remind.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD622C5F6A8A00A12DAB /* Remind.swift */; };
 		A059AD672C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD662C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift */; };
-		A059AD6D2C6271DA00A12DAB /* DaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD6C2C6271DA00A12DAB /* DaysView.swift */; };
+		A059AD6D2C6271DA00A12DAB /* LifeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD6C2C6271DA00A12DAB /* LifeView.swift */; };
 		A059AD6F2C638DE300A12DAB /* AllItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD6E2C638DE300A12DAB /* AllItemView.swift */; };
+		A09AFE9E2C68C0A00034F9AF /* LifeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFE9D2C68C0A00034F9AF /* LifeInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,8 +64,9 @@
 		A059AD612C5F6A8A00A12DAB /* Priority.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
 		A059AD622C5F6A8A00A12DAB /* Remind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Remind.swift; sourceTree = "<group>"; };
 		A059AD662C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStringConvertibleExtension.swift; sourceTree = "<group>"; };
-		A059AD6C2C6271DA00A12DAB /* DaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysView.swift; sourceTree = "<group>"; };
+		A059AD6C2C6271DA00A12DAB /* LifeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeView.swift; sourceTree = "<group>"; };
 		A059AD6E2C638DE300A12DAB /* AllItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllItemView.swift; sourceTree = "<group>"; };
+		A09AFE9D2C68C0A00034F9AF /* LifeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,8 +130,9 @@
 				A059AD522C5E833800A12DAB /* ItemListEditView.swift */,
 				A059AD542C5F647400A12DAB /* ItemListInfoView.swift */,
 				A059AD5A2C5F693300A12DAB /* NewItemView.swift */,
-				A059AD6C2C6271DA00A12DAB /* DaysView.swift */,
+				A059AD6C2C6271DA00A12DAB /* LifeView.swift */,
 				A059AD6E2C638DE300A12DAB /* AllItemView.swift */,
+				A09AFE9D2C68C0A00034F9AF /* LifeInfoView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -273,7 +276,7 @@
 				A059AD442C5DD33A00A12DAB /* ListCard.swift in Sources */,
 				A059AD2E2C5BC4F900A12DAB /* Item.swift in Sources */,
 				A059AD4C2C5DEDAD00A12DAB /* DateFormatter.swift in Sources */,
-				A059AD6D2C6271DA00A12DAB /* DaysView.swift in Sources */,
+				A059AD6D2C6271DA00A12DAB /* LifeView.swift in Sources */,
 				A059AD482C5DED6900A12DAB /* NewItemListView.swift in Sources */,
 				A059AD592C5F64D100A12DAB /* CustomProgressView.swift in Sources */,
 				A059AD532C5E833800A12DAB /* ItemListEditView.swift in Sources */,
@@ -281,6 +284,7 @@
 				A059AD672C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift in Sources */,
 				A059AD512C5DF6AC00A12DAB /* SampleColor.swift in Sources */,
 				A059AD652C5F6A8A00A12DAB /* Remind.swift in Sources */,
+				A09AFE9E2C68C0A00034F9AF /* LifeInfoView.swift in Sources */,
 				A059AD5E2C5F69B200A12DAB /* SettingIconStyle.swift in Sources */,
 				A059AD4F2C5DF08600A12DAB /* ItemListView.swift in Sources */,
 				A059AD422C5D39D300A12DAB /* ColorExtension.swift in Sources */,
