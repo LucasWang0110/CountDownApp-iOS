@@ -35,6 +35,9 @@
 		A059AD6D2C6271DA00A12DAB /* LifeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD6C2C6271DA00A12DAB /* LifeView.swift */; };
 		A059AD6F2C638DE300A12DAB /* AllItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD6E2C638DE300A12DAB /* AllItemView.swift */; };
 		A09AFE9E2C68C0A00034F9AF /* LifeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFE9D2C68C0A00034F9AF /* LifeInfoView.swift */; };
+		A09AFEA02C6A62410034F9AF /* SectionHeaderStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFE9F2C6A62410034F9AF /* SectionHeaderStyle.swift */; };
+		A09AFEA42C6B9D4B0034F9AF /* EventEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEA32C6B9D4B0034F9AF /* EventEditViewController.swift */; };
+		A09AFEA72C6BA26C0034F9AF /* AddLifeExpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEA62C6BA26C0034F9AF /* AddLifeExpView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +70,10 @@
 		A059AD6C2C6271DA00A12DAB /* LifeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeView.swift; sourceTree = "<group>"; };
 		A059AD6E2C638DE300A12DAB /* AllItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllItemView.swift; sourceTree = "<group>"; };
 		A09AFE9D2C68C0A00034F9AF /* LifeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeInfoView.swift; sourceTree = "<group>"; };
+		A09AFE9F2C6A62410034F9AF /* SectionHeaderStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderStyle.swift; sourceTree = "<group>"; };
+		A09AFEA32C6B9D4B0034F9AF /* EventEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEditViewController.swift; sourceTree = "<group>"; };
+		A09AFEA52C6BA0960034F9AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A09AFEA62C6BA26C0034F9AF /* AddLifeExpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLifeExpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +106,7 @@
 		A059AD282C5BC4F900A12DAB /* CountDownApp */ = {
 			isa = PBXGroup;
 			children = (
+				A09AFEA52C6BA0960034F9AF /* Info.plist */,
 				A059AD5F2C5F6A8A00A12DAB /* enum */,
 				A059AD5C2C5F699100A12DAB /* style */,
 				A059AD492C5DEDAD00A12DAB /* util */,
@@ -133,6 +141,7 @@
 				A059AD6C2C6271DA00A12DAB /* LifeView.swift */,
 				A059AD6E2C638DE300A12DAB /* AllItemView.swift */,
 				A09AFE9D2C68C0A00034F9AF /* LifeInfoView.swift */,
+				A09AFEA62C6BA26C0034F9AF /* AddLifeExpView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -161,6 +170,7 @@
 		A059AD402C5D393600A12DAB /* extension */ = {
 			isa = PBXGroup;
 			children = (
+				A09AFEA32C6B9D4B0034F9AF /* EventEditViewController.swift */,
 				A059AD412C5D39D300A12DAB /* ColorExtension.swift */,
 				A059AD662C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift */,
 			);
@@ -182,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				A059AD5D2C5F69B200A12DAB /* SettingIconStyle.swift */,
+				A09AFE9F2C6A62410034F9AF /* SectionHeaderStyle.swift */,
 			);
 			path = style;
 			sourceTree = "<group>";
@@ -267,8 +278,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A059AD5B2C5F693300A12DAB /* NewItemView.swift in Sources */,
+				A09AFEA02C6A62410034F9AF /* SectionHeaderStyle.swift in Sources */,
 				A059AD632C5F6A8A00A12DAB /* RepeatEnum.swift in Sources */,
 				A059AD642C5F6A8A00A12DAB /* Priority.swift in Sources */,
+				A09AFEA42C6B9D4B0034F9AF /* EventEditViewController.swift in Sources */,
 				A059AD4D2C5DEDAD00A12DAB /* SampleSymbol.swift in Sources */,
 				A059AD6F2C638DE300A12DAB /* AllItemView.swift in Sources */,
 				A059AD3C2C5BEA2300A12DAB /* ItemList.swift in Sources */,
@@ -276,6 +289,7 @@
 				A059AD442C5DD33A00A12DAB /* ListCard.swift in Sources */,
 				A059AD2E2C5BC4F900A12DAB /* Item.swift in Sources */,
 				A059AD4C2C5DEDAD00A12DAB /* DateFormatter.swift in Sources */,
+				A09AFEA72C6BA26C0034F9AF /* AddLifeExpView.swift in Sources */,
 				A059AD6D2C6271DA00A12DAB /* LifeView.swift in Sources */,
 				A059AD482C5DED6900A12DAB /* NewItemListView.swift in Sources */,
 				A059AD592C5F64D100A12DAB /* CustomProgressView.swift in Sources */,
@@ -427,6 +441,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CountDownApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CountDownApp/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "I want use your calendar";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -455,6 +471,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CountDownApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CountDownApp/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "I want use your calendar";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

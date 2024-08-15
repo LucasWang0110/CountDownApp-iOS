@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import EventKit
 
 struct LifeView: View {
     
     @State private var searchText = ""
+    @State private var selectedEvent: EKEvent?
+    @State private var showEventEditViewController = false
+    @State private var store = EKEventStore()
+    
+    @State private var showNewLifeSheet = false
     
     var body: some View {
         NavigationStack {
@@ -21,7 +27,7 @@ struct LifeView: View {
                         NavigationLink(destination: { LifeInfoView() }, label: { EmptyView() }).opacity(0)
                     }
                 }, header: {
-                    Text("Life Expectancy")
+                    Text("Life Expectancy").SectionHeaderStyle()
                 })
                 
                 Section(content: {
@@ -38,7 +44,7 @@ struct LifeView: View {
                         }
                     }
                 }, header: {
-                    Text("Memory days")
+                    Text("Memory Days").SectionHeaderStyle()
                 })
                 
                 Section(content: {
@@ -55,7 +61,7 @@ struct LifeView: View {
                         }
                     }
                 }, header: {
-                    Text("Upcoming event")
+                    Text("Upcoming Event").SectionHeaderStyle()
                 })
                 
             }
@@ -65,12 +71,18 @@ struct LifeView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu(content: {
-                        Button("Life Expectancy", systemImage: "heart", action: {})
+                        Button("Life Expectancy", systemImage: "heart", action: { showNewLifeSheet.toggle() })
                         Button("Memory day", systemImage: "calendar", action: {})
-                        Button("Event", systemImage: "note.text", action: {})
+                        Button("Event", systemImage: "note.text", action: { showEventEditViewController.toggle() })
                     }, label: { Button("Add", systemImage: "plus", action: {}) })
                 }
             }
+            .sheet(isPresented: $showEventEditViewController, content: {
+                EventEditViewController(event: $selectedEvent, eventStore: store)
+            })
+            .sheet(isPresented: $showNewLifeSheet, content: {
+                AddLifeExpView()
+            })
             
         }
     }
