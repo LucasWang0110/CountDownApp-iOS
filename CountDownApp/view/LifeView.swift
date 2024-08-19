@@ -16,6 +16,7 @@ struct LifeView: View {
     @State private var store = EKEventStore()
     
     @State private var showNewLifeSheet = false
+    @State private var showNewEventSheet = false
     
     var body: some View {
         NavigationStack {
@@ -73,7 +74,7 @@ struct LifeView: View {
                     Menu(content: {
                         Button("Life Expectancy", systemImage: "heart", action: { showNewLifeSheet.toggle() })
                         Button("Memory day", systemImage: "calendar", action: {})
-                        Button("Event", systemImage: "note.text", action: { showEventEditViewController.toggle() })
+                        Button("Event", systemImage: "note.text", action: { showNewEventSheet.toggle() })
                     }, label: { Button("Add", systemImage: "plus", action: {}) })
                 }
             }
@@ -82,6 +83,9 @@ struct LifeView: View {
             })
             .sheet(isPresented: $showNewLifeSheet, content: {
                 AddLifeExpView()
+            })
+            .sheet(isPresented: $showNewEventSheet, content: {
+                NewEventView(editEvent: false)
             })
             
         }

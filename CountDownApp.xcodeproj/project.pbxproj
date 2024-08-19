@@ -38,6 +38,11 @@
 		A09AFEA02C6A62410034F9AF /* SectionHeaderStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFE9F2C6A62410034F9AF /* SectionHeaderStyle.swift */; };
 		A09AFEA42C6B9D4B0034F9AF /* EventEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEA32C6B9D4B0034F9AF /* EventEditViewController.swift */; };
 		A09AFEA72C6BA26C0034F9AF /* AddLifeExpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEA62C6BA26C0034F9AF /* AddLifeExpView.swift */; };
+		A09AFEA92C6E53FF0034F9AF /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEA82C6E53FF0034F9AF /* SwiftUIView.swift */; };
+		A09AFEAB2C6E55850034F9AF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEAA2C6E55850034F9AF /* LocationService.swift */; };
+		A09AFEAF2C71C7790034F9AF /* LocationSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEAE2C71C7790034F9AF /* LocationSearchView.swift */; };
+		A09AFEB12C71D1B40034F9AF /* NewEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEB02C71D1B40034F9AF /* NewEventView.swift */; };
+		A09AFEB32C71D33D0034F9AF /* TextField+ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEB22C71D33D0034F9AF /* TextField+ClearButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +79,11 @@
 		A09AFEA32C6B9D4B0034F9AF /* EventEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEditViewController.swift; sourceTree = "<group>"; };
 		A09AFEA52C6BA0960034F9AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A09AFEA62C6BA26C0034F9AF /* AddLifeExpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLifeExpView.swift; sourceTree = "<group>"; };
+		A09AFEA82C6E53FF0034F9AF /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		A09AFEAA2C6E55850034F9AF /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		A09AFEAE2C71C7790034F9AF /* LocationSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchView.swift; sourceTree = "<group>"; };
+		A09AFEB02C71D1B40034F9AF /* NewEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventView.swift; sourceTree = "<group>"; };
+		A09AFEB22C71D33D0034F9AF /* TextField+ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+ClearButton.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +152,9 @@
 				A059AD6E2C638DE300A12DAB /* AllItemView.swift */,
 				A09AFE9D2C68C0A00034F9AF /* LifeInfoView.swift */,
 				A09AFEA62C6BA26C0034F9AF /* AddLifeExpView.swift */,
+				A09AFEA82C6E53FF0034F9AF /* SwiftUIView.swift */,
+				A09AFEAE2C71C7790034F9AF /* LocationSearchView.swift */,
+				A09AFEB02C71D1B40034F9AF /* NewEventView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -183,6 +196,7 @@
 				A059AD4A2C5DEDAD00A12DAB /* DateFormatter.swift */,
 				A059AD4B2C5DEDAD00A12DAB /* SampleSymbol.swift */,
 				A059AD502C5DF6AC00A12DAB /* SampleColor.swift */,
+				A09AFEAA2C6E55850034F9AF /* LocationService.swift */,
 			);
 			name = util;
 			path = ../../CountDown/CountDown/util;
@@ -193,6 +207,7 @@
 			children = (
 				A059AD5D2C5F69B200A12DAB /* SettingIconStyle.swift */,
 				A09AFE9F2C6A62410034F9AF /* SectionHeaderStyle.swift */,
+				A09AFEB22C71D33D0034F9AF /* TextField+ClearButton.swift */,
 			);
 			path = style;
 			sourceTree = "<group>";
@@ -284,6 +299,7 @@
 				A09AFEA42C6B9D4B0034F9AF /* EventEditViewController.swift in Sources */,
 				A059AD4D2C5DEDAD00A12DAB /* SampleSymbol.swift in Sources */,
 				A059AD6F2C638DE300A12DAB /* AllItemView.swift in Sources */,
+				A09AFEAF2C71C7790034F9AF /* LocationSearchView.swift in Sources */,
 				A059AD3C2C5BEA2300A12DAB /* ItemList.swift in Sources */,
 				A059AD2C2C5BC4F900A12DAB /* ContentView.swift in Sources */,
 				A059AD442C5DD33A00A12DAB /* ListCard.swift in Sources */,
@@ -291,14 +307,17 @@
 				A059AD4C2C5DEDAD00A12DAB /* DateFormatter.swift in Sources */,
 				A09AFEA72C6BA26C0034F9AF /* AddLifeExpView.swift in Sources */,
 				A059AD6D2C6271DA00A12DAB /* LifeView.swift in Sources */,
+				A09AFEA92C6E53FF0034F9AF /* SwiftUIView.swift in Sources */,
 				A059AD482C5DED6900A12DAB /* NewItemListView.swift in Sources */,
 				A059AD592C5F64D100A12DAB /* CustomProgressView.swift in Sources */,
 				A059AD532C5E833800A12DAB /* ItemListEditView.swift in Sources */,
 				A059AD552C5F647400A12DAB /* ItemListInfoView.swift in Sources */,
 				A059AD672C5FDB7900A12DAB /* CustomStringConvertibleExtension.swift in Sources */,
+				A09AFEB32C71D33D0034F9AF /* TextField+ClearButton.swift in Sources */,
 				A059AD512C5DF6AC00A12DAB /* SampleColor.swift in Sources */,
 				A059AD652C5F6A8A00A12DAB /* Remind.swift in Sources */,
 				A09AFE9E2C68C0A00034F9AF /* LifeInfoView.swift in Sources */,
+				A09AFEB12C71D1B40034F9AF /* NewEventView.swift in Sources */,
 				A059AD5E2C5F69B200A12DAB /* SettingIconStyle.swift in Sources */,
 				A059AD4F2C5DF08600A12DAB /* ItemListView.swift in Sources */,
 				A059AD422C5D39D300A12DAB /* ColorExtension.swift in Sources */,
@@ -306,6 +325,7 @@
 				A059AD2A2C5BC4F900A12DAB /* CountDownAppApp.swift in Sources */,
 				A059AD3F2C5D38A600A12DAB /* ListRow.swift in Sources */,
 				A059AD572C5F649D00A12DAB /* ItemRow.swift in Sources */,
+				A09AFEAB2C6E55850034F9AF /* LocationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
