@@ -30,7 +30,7 @@ struct NewEventView: View {
     
     @State private var showGallery = false
     @State private var imageItem: PhotosPickerItem?
-    @State private var images: [Image] = []
+    @State private var images: [Data] = []
     
     var body: some View {
         NavigationStack {
@@ -137,7 +137,7 @@ struct NewEventView: View {
                 }
                 .onChange(of: startDateTime) {
                     if startDateTime.timeIntervalSince(endDateTime) >= 0 {
-                        
+                        //TODO: add 1 day to endDateTime
                     }
                 }
                 
@@ -150,6 +150,15 @@ struct NewEventView: View {
                             Button("Take photo", systemImage: "camera", action: {})
                             Button("Open gallery", systemImage: "photo.on.rectangle", action: { showGallery.toggle() })
                         })
+                        List(images, id: \.self) { imageData in
+                            if let uiImage = UIImage(data: imageData) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 40, height: 40)
+                                    .cornerRadius(10)
+                            }
+                        }
                     }
                 }
             }
@@ -174,10 +183,10 @@ struct NewEventView: View {
             .photosPicker(isPresented: $showGallery, selection: $imageItem, matching: .images)
             .onChange(of: imageItem) {
                 Task {
-                    if let loaded = try? await imageItem?.loadTransferable(type: Image.self) {
-                        images.append(loaded)
+                    if let data = try? await imageItem?.loadTransferable(type: Data.self) {
+                        images.append(data)
                     } else {
-                        print("Failed")
+                        print("Failed to load image")
                     }
                 }
             }
