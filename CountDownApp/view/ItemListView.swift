@@ -24,43 +24,33 @@ struct ItemListView: View {
     @State private var displayListInfoSheet = false
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    @State private var path = NavigationPath()
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack (alignment: .leading, spacing: 20){
-                    //total section
-                    Section {
-                        Grid(horizontalSpacing: 20, verticalSpacing: 20) {
-                            GridRow {
-                                NavigationLink(destination: EmptyView()) {
-                                    ListCard(icon: { CircleSymbolWithText(bgColor: .green, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Ongoing")
-                                }
-                                NavigationLink(destination: EmptyView()) {
-                                    ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "clock.badge.xmark") }, cardValue: 12, cardTitle: "Overtime")
-                                }
-                            }
-                            GridRow {
-                                NavigationLink(destination: EmptyView()) {
-                                    ListCard(icon: { CircleSymbol(bgColor: .blue, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Total")
-                                }
-                                NavigationLink(destination: EmptyView()) {
-                                    ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Flag")
-                                }
-                            }
-                        }
+        NavigationStack(path: $path) {
+            List {
+                //total section
+                Section {
+                    LazyVGrid(columns: columns) {
+                        ListCard(icon: { CircleSymbolWithText(bgColor: .green, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Ongoing")
+                            .onTapGesture { path.append(SectionType.ongoing) }
+                        ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "clock.badge.xmark") }, cardValue: 12, cardTitle: "Overtime")
+                            .onTapGesture { path.append(SectionType.overTime) }
+                        ListCard(icon: { CircleSymbol(bgColor: .blue, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Total")
+                            .onTapGesture { path.append(SectionType.total) }
+                        ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Flag")
+                            .onTapGesture { path.append(SectionType.flag) }
                     }
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(EdgeInsets())
-                    
-                    //item list section
-                    Section(content: {
-                        VStack {
-                            ForEach(itemList.indices, id: \.self) { index in
-                                let item = itemList[index]
-                                NavigationLink(destination: ItemListInfoView(itemList: item), label: {
-                                    ListRow(itemList: item)
-                                })
+                }
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets())
+                
+                //item list section
+                Section(content: {
+                    ForEach(itemList, id: \.self) { item in
+                        NavigationLink(destination: ItemListInfoView(itemList: item), label: {
+                            ListRow(itemList: item)
+                                .badge(item.items.count)
                                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                     Button("Delete", systemImage: "trash.fill", role: .destructive, action: {
                                         deleteList(itemList: item)
@@ -72,29 +62,23 @@ struct ItemListView: View {
                                         Image(systemName: "info.circle.fill")
                                     })
                                 }
-                                
-                                if index < itemList.count - 1 {
-                                    Divider().padding(.trailing, -20).padding(.leading, 40)
-                                }
-                            }
-                            
-                        }
-                        .padding()
-                        .background(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }, header: {
-                        Text(LocalizedStringKey("My List"))
-                            .textCase(.none)
-                            .font(.title2)
-                            .bold()
-                            .foregroundStyle(colorScheme == .light ? .black : .white)
-                    })
-                    .sheet(isPresented: $displayListInfoSheet, content: {
-                        ItemListEditView(itemList: $currentList)
-                    })
-                }
+                        })
+                    }
+                    
+                }, header: {
+                    Text(LocalizedStringKey("My List"))
+                        .textCase(.none)
+                        .font(.system(.title2, design: .rounded, weight: .bold))
+                        .foregroundStyle(colorScheme == .light ? .black : .white)
+                })
+                .sheet(isPresented: $displayListInfoSheet, content: {
+                    ItemListEditView(itemList: $currentList)
+                })
+            
             }
-            .padding()
+            .navigationDestination(for: SectionType.self) { type in
+                AllItemView(sectionType: type, itemList: itemList)
+            }
             .background(Color(uiColor: .secondarySystemBackground))
             .listSectionSpacing(10)
             .toolbar {

@@ -9,22 +9,34 @@ import SwiftUI
 
 struct AllItemView: View {
     
+    var sectionType: SectionType
     var itemList: [ItemList]
+    
+    @State private var expandedSections: [Bool]
+        
+    init(sectionType: SectionType, itemList: [ItemList]) {
+        self.sectionType = sectionType
+        self.itemList = itemList
+        _expandedSections = State(initialValue: Array(repeating: true, count: itemList.count))
+    }
     
     var body: some View {
         List {
-            ForEach(itemList, id:\.id) { item in
-                Section(content: {
-                    ForEach(item.items, id:\.id) { it in
-                        itemRow(item: it)
-                    }
-                }, header: {
-                    Text(item.title)
-                })
+            ForEach(Array(itemList.enumerated()), id:\.offset) { index, item in
+                if !item.items.isEmpty {
+                    Section(isExpanded: $expandedSections[index], content: {
+                        ForEach(item.items, id:\.id) { it in
+                            itemRow(item: it)
+                        }
+                    }, header: {
+                        Text(item.title)
+                    })
+                }
             }
         }
         .navigationTitle(LocalizedStringKey("All"))
         .navigationBarTitleDisplayMode(.large)
+        .listStyle(.sidebar)
     }
     
     func itemRow(item: Item) -> some View {
@@ -72,5 +84,5 @@ struct AllItemView: View {
 }
 
 #Preview {
-    AllItemView(itemList: ItemList.sampleList)
+    AllItemView(sectionType: .total, itemList: ItemList.sampleList)
 }

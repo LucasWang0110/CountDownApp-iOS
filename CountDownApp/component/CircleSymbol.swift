@@ -18,7 +18,8 @@ struct CircleSymbol: View {
             .overlay {
                 Image(systemName: symbolNmae)
                     .foregroundStyle(.white)
-                    .font(.system(size: 16))
+                    .font(.system(size: 14))
+                    .bold()
             }
             .frame(width: 30)
     }

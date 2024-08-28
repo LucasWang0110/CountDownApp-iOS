@@ -13,7 +13,9 @@ struct CountDownAppApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
-            ItemList.self
+            ItemList.self,
+            Event.self,
+            EventLocation.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

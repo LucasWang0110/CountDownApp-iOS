@@ -85,7 +85,7 @@ struct LifeView: View {
                 AddLifeExpView()
             })
             .sheet(isPresented: $showNewEventSheet, content: {
-                NewEventView(editEvent: false)
+                NewEventView(editEvent: false, event: Event.sampleData)
             })
             
         }

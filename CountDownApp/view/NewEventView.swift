@@ -10,8 +10,10 @@ import SwiftUI
 import MapKit
 
 struct NewEventView: View {
+    @Environment(\.dismiss) var dismiss
     
     let editEvent: Bool
+    var event: Event
     
     @State private var title = ""
     @State private var remark = ""
@@ -174,11 +176,11 @@ struct NewEventView: View {
                 })
                 
                 ToolbarItem(placement: .cancellationAction, content: {
-                    Button("Cancel", action: {})
+                    Button("Cancel", action: { dismiss() })
                 })
             }
             .sheet(isPresented: $showLocationSearchSheet, content: {
-                LocationSearchView()
+                LocationSearchView(event: event)
             })
             .photosPicker(isPresented: $showGallery, selection: $imageItem, matching: .images)
             .onChange(of: imageItem) {
@@ -189,6 +191,9 @@ struct NewEventView: View {
                         print("Failed to load image")
                     }
                 }
+            }
+            .onAppear {
+                print(event.title)
             }
         }
     }
@@ -201,5 +206,5 @@ struct NewEventView: View {
 }
 
 #Preview {
-    NewEventView(editEvent: true)
+    NewEventView(editEvent: false, event: Event.sampleData)
 }

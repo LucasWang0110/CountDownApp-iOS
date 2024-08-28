@@ -26,11 +26,6 @@ struct ListRow: View {
                     .foregroundStyle(.gray)
                 }
             }
-            Spacer()
-            if itemList.items.count != 0 {
-                Text("\(itemList.items.count)").foregroundStyle(.gray).font(.subheadline)
-            }
-            Image(systemName: "chevron.right").foregroundStyle(.gray)
         }
     }
 }

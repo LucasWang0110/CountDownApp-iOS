@@ -10,6 +10,8 @@ import SwiftUI
 struct LocationSearchView: View {
     @Environment(\.dismiss) var dismiss
     
+    var event: Event
+    
     @State private var locationService = LocationService(completer: .init())
     @State private var search: String = ""
     @State private var searchResults: SearchResult?
@@ -52,11 +54,14 @@ struct LocationSearchView: View {
         Task {
             if let singleLocation = try? await locationService.search(with: "\(completion.title) \(completion.subTitle)").first {
                 searchResults = singleLocation
+                let location = EventLocation(title: completion.title, subtitle: completion.subTitle, url: completion.url?.absoluteString ?? nil, latitude: searchResults?.location.latitude ?? 0, longitude: searchResults?.location.longitude ?? 0)
+                event.location = location
+                print(location)
             }
         }
     }
 }
 
 #Preview {
-    LocationSearchView()
+    LocationSearchView(event: Event.sampleData)
 }
