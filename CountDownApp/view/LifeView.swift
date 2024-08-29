@@ -39,7 +39,6 @@ struct LifeView: View {
                                 Text("\(Date().formatted(date: .numeric, time: .omitted))")
                                 Spacer()
                                 Text("360").font(.title3).bold().foregroundStyle(.blue)
-                                Text("past")
                             }
                             .foregroundStyle(.gray)
                         }
@@ -56,7 +55,6 @@ struct LifeView: View {
                                 Text("\(Date().formatted(date: .numeric, time: .omitted))")
                                 Spacer()
                                 Text("360").font(.title3).bold().foregroundStyle(.green)
-                                Text("left")
                             }
                             .foregroundStyle(.gray)
                         }
