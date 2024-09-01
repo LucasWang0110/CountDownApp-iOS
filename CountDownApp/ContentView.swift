@@ -26,5 +26,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: [ItemList.self, Item.self, Event.self, EventLocation.self], inMemory: true)
+        .modelContainer(for: [ItemList.self, Item.self, Event.self, EventLocation.self, LifeModel.self], inMemory: true)
 }

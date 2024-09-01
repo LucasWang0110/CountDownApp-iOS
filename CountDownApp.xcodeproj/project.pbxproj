@@ -44,6 +44,9 @@
 		A09AFEB32C71D33D0034F9AF /* TextField+ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEB22C71D33D0034F9AF /* TextField+ClearButton.swift */; };
 		A0E893FB2C74E0F700BCDD9F /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E893FA2C74E0F700BCDD9F /* EventModel.swift */; };
 		A0E893FF2C7F623800BCDD9F /* SectioinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E893FE2C7F623800BCDD9F /* SectioinType.swift */; };
+		A0E894012C834AB400BCDD9F /* LifeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E894002C834AB400BCDD9F /* LifeModel.swift */; };
+		A0E894042C834E3900BCDD9F /* LifeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E894032C834E3900BCDD9F /* LifeViewModel.swift */; };
+		A0E894062C835F9C00BCDD9F /* OpenMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E894052C835F9C00BCDD9F /* OpenMode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +89,9 @@
 		A09AFEB22C71D33D0034F9AF /* TextField+ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+ClearButton.swift"; sourceTree = "<group>"; };
 		A0E893FA2C74E0F700BCDD9F /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		A0E893FE2C7F623800BCDD9F /* SectioinType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectioinType.swift; sourceTree = "<group>"; };
+		A0E894002C834AB400BCDD9F /* LifeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeModel.swift; sourceTree = "<group>"; };
+		A0E894032C834E3900BCDD9F /* LifeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeViewModel.swift; sourceTree = "<group>"; };
+		A0E894052C835F9C00BCDD9F /* OpenMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +131,7 @@
 				A059AD402C5D393600A12DAB /* extension */,
 				A059AD3D2C5D387700A12DAB /* component */,
 				A059AD3A2C5BC74A00A12DAB /* model */,
+				A0E894022C834E0400BCDD9F /* viewModel */,
 				A059AD392C5BC6D800A12DAB /* view */,
 				A059AD292C5BC4F900A12DAB /* CountDownAppApp.swift */,
 				A059AD2B2C5BC4F900A12DAB /* ContentView.swift */,
@@ -167,6 +174,7 @@
 				A059AD2D2C5BC4F900A12DAB /* Item.swift */,
 				A059AD3B2C5BEA2300A12DAB /* ItemList.swift */,
 				A0E893FA2C74E0F700BCDD9F /* EventModel.swift */,
+				A0E894002C834AB400BCDD9F /* LifeModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -221,8 +229,17 @@
 				A059AD612C5F6A8A00A12DAB /* Priority.swift */,
 				A059AD622C5F6A8A00A12DAB /* Remind.swift */,
 				A0E893FE2C7F623800BCDD9F /* SectioinType.swift */,
+				A0E894052C835F9C00BCDD9F /* OpenMode.swift */,
 			);
 			path = enum;
+			sourceTree = "<group>";
+		};
+		A0E894022C834E0400BCDD9F /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A0E894032C834E3900BCDD9F /* LifeViewModel.swift */,
+			);
+			path = viewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +320,8 @@
 				A059AD4D2C5DEDAD00A12DAB /* SampleSymbol.swift in Sources */,
 				A059AD6F2C638DE300A12DAB /* AllItemView.swift in Sources */,
 				A09AFEAF2C71C7790034F9AF /* LocationSearchView.swift in Sources */,
+				A0E894062C835F9C00BCDD9F /* OpenMode.swift in Sources */,
+				A0E894042C834E3900BCDD9F /* LifeViewModel.swift in Sources */,
 				A059AD3C2C5BEA2300A12DAB /* ItemList.swift in Sources */,
 				A059AD2C2C5BC4F900A12DAB /* ContentView.swift in Sources */,
 				A059AD442C5DD33A00A12DAB /* ListCard.swift in Sources */,
@@ -318,6 +337,7 @@
 				A059AD552C5F647400A12DAB /* ItemListInfoView.swift in Sources */,
 				A09AFEB32C71D33D0034F9AF /* TextField+ClearButton.swift in Sources */,
 				A059AD512C5DF6AC00A12DAB /* SampleColor.swift in Sources */,
+				A0E894012C834AB400BCDD9F /* LifeModel.swift in Sources */,
 				A059AD652C5F6A8A00A12DAB /* Remind.swift in Sources */,
 				A09AFE9E2C68C0A00034F9AF /* LifeInfoView.swift in Sources */,
 				A09AFEB12C71D1B40034F9AF /* NewEventView.swift in Sources */,

@@ -15,7 +15,8 @@ struct CountDownAppApp: App {
             Item.self,
             ItemList.self,
             Event.self,
-            EventLocation.self
+            EventLocation.self,
+            LifeModel.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

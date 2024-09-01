@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 import EventKit
 
 struct LifeView: View {
+    @Environment(\.modelContext) var modelContext
+    
+    @Query private var lifeList: [LifeModel]
     
     @State private var searchText = ""
     @State private var selectedEvent: EKEvent?
@@ -23,9 +27,11 @@ struct LifeView: View {
             List {
                 
                 Section (content: {
-                    ZStack {
-                        row()
-                        NavigationLink(destination: { LifeInfoView() }, label: { EmptyView() }).opacity(0)
+                    ForEach(lifeList) { life in
+                        ZStack {
+                            row(life: life)
+                            NavigationLink(destination: { LifeInfoView(lifeViewModel: LifeViewModel(life: life, lifeList: lifeList, modelContext: modelContext, openMode: .edit)) }, label: { EmptyView() }).opacity(0)
+                        }
                     }
                 }, header: {
                     Text("Life Expectancy").SectionHeaderStyle()
@@ -34,11 +40,12 @@ struct LifeView: View {
                 Section(content: {
                     ForEach(1..<5) { item in
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Memory someday")
+                            Text("Memory someday").font(.system(.title2, design: .rounded, weight: .bold))
+                            Text("\(Date().formatted(date: .numeric, time: .omitted))").foregroundStyle(.gray)
                             HStack(alignment: .firstTextBaseline) {
-                                Text("\(Date().formatted(date: .numeric, time: .omitted))")
-                                Spacer()
                                 Text("360").font(.title3).bold().foregroundStyle(.blue)
+                                Spacer()
+                                Text("360").font(.title3).bold().foregroundStyle(.green)
                             }
                             .foregroundStyle(.gray)
                         }
@@ -50,7 +57,7 @@ struct LifeView: View {
                 Section(content: {
                     ForEach(1..<3) { item in
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Event title")
+                            Text("Event title").font(.system(.title2, design: .rounded, weight: .bold))
                             HStack(alignment: .firstTextBaseline) {
                                 Text("\(Date().formatted(date: .numeric, time: .omitted))")
                                 Spacer()
@@ -80,24 +87,28 @@ struct LifeView: View {
                 EventEditViewController(event: $selectedEvent, eventStore: store)
             })
             .sheet(isPresented: $showNewLifeSheet, content: {
-                AddLifeExpView()
+                LifeInfoView(lifeViewModel: LifeViewModel(life: LifeModel(title: "", birthday: Date()), lifeList: lifeList, modelContext: modelContext, openMode: .new))
             })
             .sheet(isPresented: $showNewEventSheet, content: {
                 NewEventView(editEvent: false, event: Event.sampleData)
             })
+            .onAppear {
+                print(lifeList)
+            }
             
         }
     }
     
-    func row() -> some View {
+    func row(life: LifeModel) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Deadpool").font(.title2)
-            Text("Birthday: \(Date().formatted(date: .numeric, time: .omitted))")
+            Text(life.title).font(.system(.title2, design: .rounded, weight: .bold))
+            Text("\(life.birthday.formatted(date: .numeric, time: .omitted))").foregroundStyle(.gray)
             HStack {
-                Text("❤️: 20000 days")
+                Text("\(life.remainingDays)").foregroundStyle(.red)
                 Spacer()
-                Text("🎂: 200 days")
+                Text("\(life.daysUntilNextBirthday)").foregroundStyle(.green)
             }
+            .font(.system(.title2, design: .rounded, weight: .bold))
         }
     }
 }
