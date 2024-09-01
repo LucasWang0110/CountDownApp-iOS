@@ -22,22 +22,32 @@ struct LifeView: View {
     @State private var showNewLifeSheet = false
     @State private var showNewEventSheet = false
     
+    //section expand state
+    @State private var expandLifeSection = true
+    @State private var expandMemorySection = true
+    @State private var expandEventSection = true
+    
     var body: some View {
         NavigationStack {
             List {
                 
-                Section (content: {
+                Section (isExpanded: $expandLifeSection, content: {
                     ForEach(lifeList) { life in
                         ZStack {
                             row(life: life)
                             NavigationLink(destination: { LifeInfoView(lifeViewModel: LifeViewModel(life: life, lifeList: lifeList, modelContext: modelContext, openMode: .edit)) }, label: { EmptyView() }).opacity(0)
+                        }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button("Delete", systemImage: "trash", role: .destructive, action: {
+                                modelContext.delete(life)
+                            })
                         }
                     }
                 }, header: {
                     Text("Life Expectancy").SectionHeaderStyle()
                 })
                 
-                Section(content: {
+                Section(isExpanded: $expandMemorySection, content: {
                     ForEach(1..<5) { item in
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Memory someday").font(.system(.title2, design: .rounded, weight: .bold))
@@ -54,7 +64,7 @@ struct LifeView: View {
                     Text("Memory Days").SectionHeaderStyle()
                 })
                 
-                Section(content: {
+                Section(isExpanded: $expandEventSection, content: {
                     ForEach(1..<3) { item in
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Event title").font(.system(.title2, design: .rounded, weight: .bold))
@@ -71,6 +81,8 @@ struct LifeView: View {
                 })
                 
             }
+            .listStyle(.sidebar)
+            .animation(.default, value: lifeList)
             .navigationTitle(Text("My Days"))
             .navigationBarTitleDisplayMode(.large)
             .searchable(text: $searchText)
