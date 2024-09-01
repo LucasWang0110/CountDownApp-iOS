@@ -164,12 +164,6 @@ struct NewEventView: View {
                         }
                     }
                 }
-                
-                Section {
-                    Button(action: { print("add attachement") }, label: {
-                        Text("Add attachment...")
-                    })
-                }
             }
             .navigationTitle(Text("New Event"))
             .navigationBarTitleDisplayMode(.inline)
