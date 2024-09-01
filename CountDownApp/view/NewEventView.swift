@@ -31,7 +31,7 @@ struct NewEventView: View {
     @State private var showEndTimePicker = false
     
     @State private var showGallery = false
-    @State private var imageItem: PhotosPickerItem?
+    @State private var selectedItems: [PhotosPickerItem] = []
     @State private var images: [Data] = []
     
     var body: some View {
@@ -144,24 +144,31 @@ struct NewEventView: View {
                 }
                 
                 Section {
-                    Button(action: { print("add attachement") }, label: {
-                        Text("Add attachment...")
-                    })
                     VStack(alignment: .leading) {
                         Menu("Add images", content: {
                             Button("Take photo", systemImage: "camera", action: {})
                             Button("Open gallery", systemImage: "photo.on.rectangle", action: { showGallery.toggle() })
                         })
-                        List(images, id: \.self) { imageData in
-                            if let uiImage = UIImage(data: imageData) {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 40, height: 40)
-                                    .cornerRadius(10)
+                        if !images.isEmpty {
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(images.indices, id: \.self) { index in
+                                        ImageItemView(imageData: images[index]) {
+                                            images.remove(at: index)
+                                            selectedItems.remove(at: index)
+                                        }
+                                    }
+                                }
                             }
+                            .scrollIndicators(.hidden)
                         }
                     }
+                }
+                
+                Section {
+                    Button(action: { print("add attachement") }, label: {
+                        Text("Add attachment...")
+                    })
                 }
             }
             .navigationTitle(Text("New Event"))
@@ -182,13 +189,13 @@ struct NewEventView: View {
             .sheet(isPresented: $showLocationSearchSheet, content: {
                 LocationSearchView(event: event)
             })
-            .photosPicker(isPresented: $showGallery, selection: $imageItem, matching: .images)
-            .onChange(of: imageItem) {
-                Task {
-                    if let data = try? await imageItem?.loadTransferable(type: Data.self) {
-                        images.append(data)
-                    } else {
-                        print("Failed to load image")
+            .photosPicker(isPresented: $showGallery, selection: $selectedItems, maxSelectionCount: 20, matching: .images)
+            .onChange(of: selectedItems) { oldItems, newItems in
+                for item in newItems where !oldItems.contains(item) {
+                    Task {
+                        if let data = try? await item.loadTransferable(type: Data.self), !images.contains(data) {
+                            images.append(data)
+                        }
                     }
                 }
             }

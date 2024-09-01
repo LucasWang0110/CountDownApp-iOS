@@ -47,6 +47,7 @@
 		A0E894012C834AB400BCDD9F /* LifeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E894002C834AB400BCDD9F /* LifeModel.swift */; };
 		A0E894042C834E3900BCDD9F /* LifeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E894032C834E3900BCDD9F /* LifeViewModel.swift */; };
 		A0E894062C835F9C00BCDD9F /* OpenMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E894052C835F9C00BCDD9F /* OpenMode.swift */; };
+		A0F6671C2C84720300624F95 /* ImageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6671B2C84720300624F95 /* ImageItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		A0E894002C834AB400BCDD9F /* LifeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeModel.swift; sourceTree = "<group>"; };
 		A0E894032C834E3900BCDD9F /* LifeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeViewModel.swift; sourceTree = "<group>"; };
 		A0E894052C835F9C00BCDD9F /* OpenMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMode.swift; sourceTree = "<group>"; };
+		A0F6671B2C84720300624F95 /* ImageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,7 @@
 				A059AD432C5DD33A00A12DAB /* ListCard.swift */,
 				A059AD452C5DD36C00A12DAB /* CircleSymbol.swift */,
 				A059AD562C5F649D00A12DAB /* ItemRow.swift */,
+				A0F6671B2C84720300624F95 /* ImageItemView.swift */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				A059AD6F2C638DE300A12DAB /* AllItemView.swift in Sources */,
 				A09AFEAF2C71C7790034F9AF /* LocationSearchView.swift in Sources */,
 				A0E894062C835F9C00BCDD9F /* OpenMode.swift in Sources */,
+				A0F6671C2C84720300624F95 /* ImageItemView.swift in Sources */,
 				A0E894042C834E3900BCDD9F /* LifeViewModel.swift in Sources */,
 				A059AD3C2C5BEA2300A12DAB /* ItemList.swift in Sources */,
 				A059AD2C2C5BC4F900A12DAB /* ContentView.swift in Sources */,
