@@ -74,7 +74,6 @@ struct LifeInfoView: View {
                             Button("Done", action: {
                                 withAnimation(.spring(duration: 0.2)) { edit.toggle() }
                                 lifeViewModel.updateModel()
-                                dismiss()
                             })
                         } else {
                             Button("Edit", action: {

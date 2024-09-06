@@ -49,15 +49,17 @@ struct LifeView: View {
                 
                 Section(isExpanded: $expandMemorySection, content: {
                     ForEach(1..<5) { item in
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Memory someday").font(.system(.title2, design: .rounded, weight: .bold))
-                            Text("\(Date().formatted(date: .numeric, time: .omitted))").foregroundStyle(.gray)
-                            HStack(alignment: .firstTextBaseline) {
-                                Text("360").font(.title3).bold().foregroundStyle(.blue)
-                                Spacer()
-                                Text("360").font(.title3).bold().foregroundStyle(.green)
+                        ZStack {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("Memory someday").font(.system(.title2, design: .rounded, weight: .bold))
+                                HStack(alignment: .firstTextBaseline) {
+                                    Text("360").font(.title3).bold().foregroundStyle(.blue)
+                                    Spacer()
+                                    Text("360").font(.title3).bold().foregroundStyle(.green)
+                                }
+                                .foregroundStyle(.gray)
                             }
-                            .foregroundStyle(.gray)
+                            NavigationLink(destination: MemoryDayDisplayView(), label: { EmptyView() }).opacity(0)
                         }
                     }
                 }, header: {
@@ -90,7 +92,7 @@ struct LifeView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu(content: {
                         Button("Life Expectancy", systemImage: "heart", action: { showNewLifeSheet.toggle() })
-                        Button("Memory day", systemImage: "calendar", action: {})
+                        NavigationLink(destination: MemoryDayInfoView(), label: { Label("Memory day", systemImage: "calendar") })
                         Button("Event", systemImage: "note.text", action: { showNewEventSheet.toggle() })
                     }, label: { Button("Add", systemImage: "plus", action: {}) })
                 }
@@ -104,9 +106,6 @@ struct LifeView: View {
             .sheet(isPresented: $showNewEventSheet, content: {
                 NewEventView(editEvent: false, event: Event.sampleData)
             })
-            .onAppear {
-                print(lifeList)
-            }
             
         }
     }
