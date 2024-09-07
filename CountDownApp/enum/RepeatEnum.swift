@@ -7,6 +7,6 @@
 
 import Foundation
 enum RepeatEnum: String, Codable, CaseIterable, Identifiable {
-    case none, everyHour, everyDay, workDay, weekend, everyWeek, everyFortnight, everyMonth, every3Month, every6Month, everyYear
+    case none, everyHour, everyDay, everyWeek, everyFortnight, everyMonth, every3Month, every6Month, everyYear, custom
     var id: Self { self }
 }

@@ -55,6 +55,8 @@
 		A0F667272C87452200624F95 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = A0F667262C87452200624F95 /* FirebaseAppCheck */; };
 		A0F667292C87452200624F95 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = A0F667282C87452200624F95 /* FirebaseAppDistribution-Beta */; };
 		A0F6672B2C888B9A00624F95 /* MemoryDayDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6672A2C888B9A00624F95 /* MemoryDayDisplayView.swift */; };
+		A0F6672D2C8B42D800624F95 /* MemoryDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6672C2C8B42D800624F95 /* MemoryDayModel.swift */; };
+		A0F6672F2C8CC39B00624F95 /* MemoryDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6672E2C8CC39B00624F95 /* MemoryDayViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +105,8 @@
 		A0F6671B2C84720300624F95 /* ImageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemView.swift; sourceTree = "<group>"; };
 		A0F6671D2C84BB2F00624F95 /* MemoryDayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDayInfoView.swift; sourceTree = "<group>"; };
 		A0F6672A2C888B9A00624F95 /* MemoryDayDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDayDisplayView.swift; sourceTree = "<group>"; };
+		A0F6672C2C8B42D800624F95 /* MemoryDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDayModel.swift; sourceTree = "<group>"; };
+		A0F6672E2C8CC39B00624F95 /* MemoryDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDayViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +197,7 @@
 				A059AD3B2C5BEA2300A12DAB /* ItemList.swift */,
 				A0E893FA2C74E0F700BCDD9F /* EventModel.swift */,
 				A0E894002C834AB400BCDD9F /* LifeModel.swift */,
+				A0F6672C2C8B42D800624F95 /* MemoryDayModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				A0E894032C834E3900BCDD9F /* LifeViewModel.swift */,
+				A0F6672E2C8CC39B00624F95 /* MemoryDayViewModel.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -353,6 +359,7 @@
 				A0F6671C2C84720300624F95 /* ImageItemView.swift in Sources */,
 				A0E894042C834E3900BCDD9F /* LifeViewModel.swift in Sources */,
 				A059AD3C2C5BEA2300A12DAB /* ItemList.swift in Sources */,
+				A0F6672F2C8CC39B00624F95 /* MemoryDayViewModel.swift in Sources */,
 				A059AD2C2C5BC4F900A12DAB /* ContentView.swift in Sources */,
 				A059AD442C5DD33A00A12DAB /* ListCard.swift in Sources */,
 				A059AD2E2C5BC4F900A12DAB /* Item.swift in Sources */,
@@ -372,6 +379,7 @@
 				A059AD652C5F6A8A00A12DAB /* Remind.swift in Sources */,
 				A09AFE9E2C68C0A00034F9AF /* LifeInfoView.swift in Sources */,
 				A09AFEB12C71D1B40034F9AF /* NewEventView.swift in Sources */,
+				A0F6672D2C8B42D800624F95 /* MemoryDayModel.swift in Sources */,
 				A059AD5E2C5F69B200A12DAB /* SettingIconStyle.swift in Sources */,
 				A059AD4F2C5DF08600A12DAB /* ItemListView.swift in Sources */,
 				A0F6671E2C84BB2F00624F95 /* MemoryDayInfoView.swift in Sources */,

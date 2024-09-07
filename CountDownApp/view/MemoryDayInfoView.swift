@@ -6,47 +6,51 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MemoryDayInfoView: View {
+    @Environment(\.dismiss) var dismiss
+    @Bindable var memoryDayViewModel: MemoryDayViewModel
 
     @State private var title = ""
     @State private var date = Date()
     @State private var toggleTime = false
     @State private var showTimePicker = true
     @State private var remind: Remind = .none
+    @State private var repeatInfo: RepeatEnum = .none
     
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Title", text: $title, prompt: Text("Input Title"))
+                    TextField("Title", text: $memoryDayViewModel.memoryDay.title, prompt: Text("Input Title"))
                     
-                    DatePicker(selection: $date, displayedComponents: [.date], label: {
+                    DatePicker(selection: $memoryDayViewModel.memoryDay.date, displayedComponents: [.date], label: {
                         Label("Date", systemImage: "calendar").labelStyle(SettingIconStyle(bgColor: .red))
                     })
                     
-                    Toggle(isOn: $toggleTime, label: {
+                    Toggle(isOn: $memoryDayViewModel.memoryDay.displayTime, label: {
                         Label("Time", systemImage: "clock.fill").labelStyle(SettingIconStyle(bgColor: .blue))
                             .contentShape(.rect)
                             .onTapGesture {
                                 showTimePicker.toggle()
                             }
                     })
-                    .onChange(of: toggleTime, {
-                        showTimePicker = toggleTime
+                    .onChange(of: memoryDayViewModel.memoryDay.displayTime, {
+                        showTimePicker = memoryDayViewModel.memoryDay.displayTime
                     })
-                    if toggleTime {
+                    if memoryDayViewModel.memoryDay.displayTime {
                         HStack {
                             Spacer()
                             Text("\(date.formatted(date: .omitted, time: .shortened))")
                         }
                     }
                     
-                    if toggleTime && showTimePicker {
+                    if memoryDayViewModel.memoryDay.displayTime && showTimePicker {
                         DatePicker("", selection: $date, displayedComponents: [.hourAndMinute]).datePickerStyle(.wheel)
                     }
                     
-                    Picker(selection: $remind, content: {
+                    Picker(selection: $memoryDayViewModel.memoryDay.remind, content: {
                         ForEach(Remind.allCases) { item in
                             Text(item.rawValue)
                             if item == .none || item == .sixMonth {
@@ -57,10 +61,10 @@ struct MemoryDayInfoView: View {
                         Label("Remind", systemImage: "bell.fill").labelStyle(SettingIconStyle(bgColor: .purple))
                     })
                     
-                    Picker(selection: $remind, content: {
-                        ForEach(Remind.allCases) { item in
+                    Picker(selection: $memoryDayViewModel.memoryDay.repeatInfo, content: {
+                        ForEach(RepeatEnum.allCases) { item in
                             Text(item.rawValue)
-                            if item == .none || item == .sixMonth {
+                            if item == .none || item == .everyYear {
                                 Divider()
                             }
                         }
@@ -68,15 +72,16 @@ struct MemoryDayInfoView: View {
                         Label("Repeat", systemImage: "repeat").labelStyle(SettingIconStyle(bgColor: .secondary))
                     })
                 }
-                Section {
-                    Text("font style & color")
-                }
+                //TODO: change font style and color of displayed text
             }
             .navigationTitle(Text("Memory day"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing, content: {
-                    Button("Save", action: {})
+                    Button("Save", action: { 
+                        memoryDayViewModel.save()
+                        dismiss()
+                    })
                 })
             }
         }
@@ -84,5 +89,8 @@ struct MemoryDayInfoView: View {
 }
 
 #Preview {
-    MemoryDayInfoView()
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: MemoryDayModel.self, configurations: config)
+    let model = MemoryDayModel(title: "Get to work", date: .now)
+    return MemoryDayInfoView(memoryDayViewModel: MemoryDayViewModel(memoryDay: model, modelContext: container.mainContext, openMode: .edit))
 }

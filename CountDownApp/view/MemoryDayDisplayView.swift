@@ -8,24 +8,27 @@
 import SwiftUI
 
 struct MemoryDayDisplayView: View {
+    @Environment(\.modelContext) var modelContext
+    var memoryDay: MemoryDayModel
+    
     var body: some View {
         NavigationStack {
             VStack {
                 VStack(spacing: 0) {
-                    Text("title")
+                    Text(memoryDay.title)
                         .lineLimit(2)
                         .flexPadding()
                         .background(Color(hex: "F6EACB")!)
                         .font(.system(size: 24, weight: .bold, design: .rounded))
                     
-                    Text("1356")
+                    Text("\(memoryDay.daysUntilToday)")
                         .flexPadding()
                         .background(.white)
                         .font(.system(size: 80, weight: .bold, design: .rounded))
                     
                     Divider()
                     
-                    Text("Date: \(dateFormatter.string(from: Date()))")
+                    Text("Date: \(dateFormatter.string(from: memoryDay.date))")
                         .flexPadding()
                         .background(Color(uiColor: .systemGray5))
                 }
@@ -39,7 +42,7 @@ struct MemoryDayDisplayView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing, content: {
-                    NavigationLink(destination: MemoryDayInfoView(), label: {
+                    NavigationLink(destination: MemoryDayInfoView(memoryDayViewModel: MemoryDayViewModel(memoryDay: memoryDay, modelContext: modelContext, openMode: .edit)), label: {
                         Text("Edit")
                     })
                 })
@@ -57,5 +60,5 @@ extension View {
 }
 
 #Preview {
-    MemoryDayDisplayView()
+    MemoryDayDisplayView(memoryDay: MemoryDayModel(title: "Some day", date: .now))
 }

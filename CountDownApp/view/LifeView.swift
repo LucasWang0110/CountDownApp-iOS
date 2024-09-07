@@ -13,6 +13,7 @@ struct LifeView: View {
     @Environment(\.modelContext) var modelContext
     
     @Query private var lifeList: [LifeModel]
+    @Query private var memoryDayList: [MemoryDayModel]
     
     @State private var searchText = ""
     @State private var selectedEvent: EKEvent?
@@ -48,18 +49,18 @@ struct LifeView: View {
                 })
                 
                 Section(isExpanded: $expandMemorySection, content: {
-                    ForEach(1..<5) { item in
+                    ForEach(memoryDayList) { item in
                         ZStack {
                             VStack(alignment: .leading, spacing: 10) {
-                                Text("Memory someday").font(.system(.title2, design: .rounded, weight: .bold))
+                                Text(item.title).font(.system(.title2, design: .rounded, weight: .bold))
                                 HStack(alignment: .firstTextBaseline) {
-                                    Text("360").font(.title3).bold().foregroundStyle(.blue)
+                                    Text("\(item.daysUntilToday)").font(.title3).bold().foregroundStyle(.blue)
                                     Spacer()
-                                    Text("360").font(.title3).bold().foregroundStyle(.green)
+                                    Text("\(item.daysUntilSameDateNextYear)").font(.title3).bold().foregroundStyle(.green)
                                 }
                                 .foregroundStyle(.gray)
                             }
-                            NavigationLink(destination: MemoryDayDisplayView(), label: { EmptyView() }).opacity(0)
+                            NavigationLink(destination: MemoryDayDisplayView(memoryDay: item), label: { EmptyView() }).opacity(0)
                         }
                     }
                 }, header: {
@@ -92,7 +93,7 @@ struct LifeView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu(content: {
                         Button("Life Expectancy", systemImage: "heart", action: { showNewLifeSheet.toggle() })
-                        NavigationLink(destination: MemoryDayInfoView(), label: { Label("Memory day", systemImage: "calendar") })
+                        NavigationLink(destination: MemoryDayInfoView(memoryDayViewModel: MemoryDayViewModel(memoryDay: MemoryDayModel(title: "", date: .now), modelContext: modelContext, openMode: .new)), label: { Label("Memory day", systemImage: "calendar") })
                         Button("Event", systemImage: "note.text", action: { showNewEventSheet.toggle() })
                     }, label: { Button("Add", systemImage: "plus", action: {}) })
                 }
@@ -106,6 +107,9 @@ struct LifeView: View {
             .sheet(isPresented: $showNewEventSheet, content: {
                 NewEventView(editEvent: false, event: Event.sampleData)
             })
+            .onAppear {
+                print(memoryDayList)
+            }
             
         }
     }
