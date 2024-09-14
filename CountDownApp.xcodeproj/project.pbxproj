@@ -37,10 +37,9 @@
 		A09AFEA02C6A62410034F9AF /* SectionHeaderStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFE9F2C6A62410034F9AF /* SectionHeaderStyle.swift */; };
 		A09AFEA42C6B9D4B0034F9AF /* EventEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEA32C6B9D4B0034F9AF /* EventEditViewController.swift */; };
 		A09AFEA72C6BA26C0034F9AF /* AddLifeExpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEA62C6BA26C0034F9AF /* AddLifeExpView.swift */; };
-		A09AFEA92C6E53FF0034F9AF /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEA82C6E53FF0034F9AF /* SwiftUIView.swift */; };
 		A09AFEAB2C6E55850034F9AF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEAA2C6E55850034F9AF /* LocationService.swift */; };
 		A09AFEAF2C71C7790034F9AF /* LocationSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEAE2C71C7790034F9AF /* LocationSearchView.swift */; };
-		A09AFEB12C71D1B40034F9AF /* NewEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEB02C71D1B40034F9AF /* NewEventView.swift */; };
+		A09AFEB12C71D1B40034F9AF /* EventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEB02C71D1B40034F9AF /* EventInfoView.swift */; };
 		A09AFEB32C71D33D0034F9AF /* TextField+ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEB22C71D33D0034F9AF /* TextField+ClearButton.swift */; };
 		A0E893FB2C74E0F700BCDD9F /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E893FA2C74E0F700BCDD9F /* EventModel.swift */; };
 		A0E893FF2C7F623800BCDD9F /* SectioinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E893FE2C7F623800BCDD9F /* SectioinType.swift */; };
@@ -57,6 +56,7 @@
 		A0F6672B2C888B9A00624F95 /* MemoryDayDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6672A2C888B9A00624F95 /* MemoryDayDisplayView.swift */; };
 		A0F6672D2C8B42D800624F95 /* MemoryDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6672C2C8B42D800624F95 /* MemoryDayModel.swift */; };
 		A0F6672F2C8CC39B00624F95 /* MemoryDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6672E2C8CC39B00624F95 /* MemoryDayViewModel.swift */; };
+		A0F667312C8E06C300624F95 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F667302C8E06C300624F95 /* EventViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,10 +92,9 @@
 		A09AFEA32C6B9D4B0034F9AF /* EventEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEditViewController.swift; sourceTree = "<group>"; };
 		A09AFEA52C6BA0960034F9AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A09AFEA62C6BA26C0034F9AF /* AddLifeExpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLifeExpView.swift; sourceTree = "<group>"; };
-		A09AFEA82C6E53FF0034F9AF /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		A09AFEAA2C6E55850034F9AF /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		A09AFEAE2C71C7790034F9AF /* LocationSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchView.swift; sourceTree = "<group>"; };
-		A09AFEB02C71D1B40034F9AF /* NewEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventView.swift; sourceTree = "<group>"; };
+		A09AFEB02C71D1B40034F9AF /* EventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfoView.swift; sourceTree = "<group>"; };
 		A09AFEB22C71D33D0034F9AF /* TextField+ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+ClearButton.swift"; sourceTree = "<group>"; };
 		A0E893FA2C74E0F700BCDD9F /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		A0E893FE2C7F623800BCDD9F /* SectioinType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectioinType.swift; sourceTree = "<group>"; };
@@ -107,6 +106,7 @@
 		A0F6672A2C888B9A00624F95 /* MemoryDayDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDayDisplayView.swift; sourceTree = "<group>"; };
 		A0F6672C2C8B42D800624F95 /* MemoryDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDayModel.swift; sourceTree = "<group>"; };
 		A0F6672E2C8CC39B00624F95 /* MemoryDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDayViewModel.swift; sourceTree = "<group>"; };
+		A0F667302C8E06C300624F95 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,9 +181,8 @@
 				A059AD6E2C638DE300A12DAB /* AllItemView.swift */,
 				A09AFE9D2C68C0A00034F9AF /* LifeInfoView.swift */,
 				A09AFEA62C6BA26C0034F9AF /* AddLifeExpView.swift */,
-				A09AFEA82C6E53FF0034F9AF /* SwiftUIView.swift */,
 				A09AFEAE2C71C7790034F9AF /* LocationSearchView.swift */,
-				A09AFEB02C71D1B40034F9AF /* NewEventView.swift */,
+				A09AFEB02C71D1B40034F9AF /* EventInfoView.swift */,
 				A0F6671D2C84BB2F00624F95 /* MemoryDayInfoView.swift */,
 				A0F6672A2C888B9A00624F95 /* MemoryDayDisplayView.swift */,
 			);
@@ -263,6 +262,7 @@
 			children = (
 				A0E894032C834E3900BCDD9F /* LifeViewModel.swift */,
 				A0F6672E2C8CC39B00624F95 /* MemoryDayViewModel.swift */,
+				A0F667302C8E06C300624F95 /* EventViewModel.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -366,19 +366,19 @@
 				A059AD4C2C5DEDAD00A12DAB /* DateFormatter.swift in Sources */,
 				A09AFEA72C6BA26C0034F9AF /* AddLifeExpView.swift in Sources */,
 				A059AD6D2C6271DA00A12DAB /* LifeView.swift in Sources */,
-				A09AFEA92C6E53FF0034F9AF /* SwiftUIView.swift in Sources */,
 				A059AD482C5DED6900A12DAB /* NewItemListView.swift in Sources */,
 				A059AD592C5F64D100A12DAB /* CustomProgressView.swift in Sources */,
 				A0E893FB2C74E0F700BCDD9F /* EventModel.swift in Sources */,
 				A059AD532C5E833800A12DAB /* ItemListEditView.swift in Sources */,
 				A059AD552C5F647400A12DAB /* ItemListInfoView.swift in Sources */,
+				A0F667312C8E06C300624F95 /* EventViewModel.swift in Sources */,
 				A0F6672B2C888B9A00624F95 /* MemoryDayDisplayView.swift in Sources */,
 				A09AFEB32C71D33D0034F9AF /* TextField+ClearButton.swift in Sources */,
 				A059AD512C5DF6AC00A12DAB /* SampleColor.swift in Sources */,
 				A0E894012C834AB400BCDD9F /* LifeModel.swift in Sources */,
 				A059AD652C5F6A8A00A12DAB /* Remind.swift in Sources */,
 				A09AFE9E2C68C0A00034F9AF /* LifeInfoView.swift in Sources */,
-				A09AFEB12C71D1B40034F9AF /* NewEventView.swift in Sources */,
+				A09AFEB12C71D1B40034F9AF /* EventInfoView.swift in Sources */,
 				A0F6672D2C8B42D800624F95 /* MemoryDayModel.swift in Sources */,
 				A059AD5E2C5F69B200A12DAB /* SettingIconStyle.swift in Sources */,
 				A059AD4F2C5DF08600A12DAB /* ItemListView.swift in Sources */,

@@ -35,25 +35,16 @@ struct EventInfoView: View {
                 Section {
                     TextField("Event title", text: $eventViewModel.event.title, prompt: Text("Title"))
                         .withClearButton(for: $eventViewModel.event.title)
-
-                    HStack {
-                        Button(action: {
-                            showLocationSearchSheet = true
-                        }) {
+                    
+                    if let location = eventViewModel.eventLocation {
+                        HStack {
                             HStack {
-                                if let location = eventViewModel.eventLocation {
-                                    Text(location.title)
-                                    Spacer()
-                                } else {
-                                    Text("Location").foregroundStyle(.gray).opacity(0.5)
-                                    Spacer()
-                                }
+                                Text(location.title)
+                                Spacer()
                             }
-                            .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                        
-                        if eventViewModel.eventLocation != nil {
+                            .contentShape(.rect)
+                            .onTapGesture { showLocationSearchSheet = true }
+                            
                             Button(action: {
                                 eventViewModel.eventLocation = nil
                             }, label: {
@@ -62,6 +53,13 @@ struct EventInfoView: View {
                                     .opacity(0.5)
                             })
                         }
+                    } else {
+                        HStack {
+                            Text("Location").foregroundStyle(.gray).opacity(0.5)
+                            Spacer()
+                        }
+                        .contentShape(.rect)
+                        .onTapGesture { showLocationSearchSheet = true }
                     }
                     
                     TextField("Remark", text: $eventViewModel.event.remark, prompt: Text("Remark"), axis: .vertical)
@@ -178,6 +176,10 @@ struct EventInfoView: View {
                             .scrollIndicators(.hidden)
                         }
                     }
+                }
+                
+                Section {
+                    Button("Load from Event Center", systemImage: "square.and.arrow.down", action: {})
                 }
             }
             .navigationTitle(Text("New Event"))

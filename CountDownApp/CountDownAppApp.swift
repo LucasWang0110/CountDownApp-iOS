@@ -14,7 +14,7 @@ struct CountDownAppApp: App {
         let schema = Schema([
             Item.self,
             ItemList.self,
-            Event.self,
+            MyEvent.self,
             EventLocation.self,
             LifeModel.self,
             MemoryDayModel.self

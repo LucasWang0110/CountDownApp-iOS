@@ -6,62 +6,101 @@
 //
 
 import SwiftUI
+import MapKit
 
-struct LocationSearchView: View {
-    @Environment(\.dismiss) var dismiss
+@Observable
+class LocationSearchService: NSObject, MKLocalSearchCompleterDelegate {
+    var searchResults: [EventLocation] = []
+    var searchCompleter = MKLocalSearchCompleter()
+
+    override init() {
+        super.init()
+        searchCompleter.delegate = self
+    }
     
-    var event: Event
-    
-    @State private var locationService = LocationService(completer: .init())
-    @State private var search: String = ""
-    @State private var searchResults: SearchResult?
-    
-    var body: some View {
-        NavigationStack {
-            List {
-                ForEach(locationService.completions) { item in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(item.title)
-                            Text(item.subTitle).font(.caption).foregroundStyle(.gray)
-                        }
-                        Spacer()
-                    }
-                    .contentShape(.rect)
-                    .onTapGesture {
-                        didTapOnCompletion(item)
-                    }
-                }
-                .listRowBackground(Color.clear)
+    func search(query: String) {
+        searchCompleter.queryFragment = query
+    }
+
+    func getCoordinates(for completion: MKLocalSearchCompletion, completionHandler: @escaping (EventLocation?) -> Void) {
+        let searchRequest = MKLocalSearch.Request(completion: completion)
+        let search = MKLocalSearch(request: searchRequest)
+        
+        search.start { response, error in
+            guard let mapItem = response?.mapItems.first else {
+                completionHandler(nil)
+                return
             }
-            .onChange(of: search) {
-                locationService.update(queryFragment: search)
-            }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .searchable(text: $search, placement: .navigationBarDrawer, prompt: Text("search location"))
-            .navigationTitle(Text("Location"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction, content: {
-                    Button("Cancel", action: { dismiss() })
-                })
-            }
+            
+            let coordinate = mapItem.placemark.coordinate
+            let location = EventLocation(
+                title: mapItem.name ?? completion.title,
+                subtitle: completion.subtitle,
+                latitude: coordinate.latitude,
+                longitude: coordinate.longitude
+            )
+            completionHandler(location)
         }
     }
     
-    private func didTapOnCompletion(_ completion: SearchCompletions) {
-        Task {
-            if let singleLocation = try? await locationService.search(with: "\(completion.title) \(completion.subTitle)").first {
-                searchResults = singleLocation
-                let location = EventLocation(title: completion.title, subtitle: completion.subTitle, url: completion.url?.absoluteString ?? nil, latitude: searchResults?.location.latitude ?? 0, longitude: searchResults?.location.longitude ?? 0)
-                event.location = location
-                print(location)
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        searchResults = completer.results.map { result in
+            EventLocation(
+                title: result.title,
+                subtitle: result.subtitle,
+                latitude: 0.0,
+                longitude: 0.0
+            )
+        }
+    }
+}
+
+struct LocationSearchView: View {
+    @State var locationService = LocationSearchService()
+    @Environment(\.dismiss) var dismiss
+    @Binding var eventLocation: EventLocation?
+    
+    @State private var searchQuery = ""
+    
+    var body: some View {
+        NavigationStack {
+            List(locationService.searchResults) { location in
+                VStack(alignment: .leading) {
+                    Text(location.title)
+                    Text(location.subtitle)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                .onTapGesture {
+                    if let result = locationService.searchCompleter.results.first(where: { $0.title == location.title }) {
+                        locationService.getCoordinates(for: result) { detailedLocation in
+                            if let location = detailedLocation {
+                                eventLocation = location  // Assign to event.location
+                                print(eventLocation!)
+                                dismiss()
+                            }
+                        }
+                    }
+                }
+            }
+            .listStyle(.plain)
+            .navigationTitle(Text("Search Location"))
+            .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $searchQuery, placement: .navigationBarDrawer)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Cancel") { dismiss() }
+                }
+            }
+            .onChange(of: searchQuery) {
+                locationService.search(query: searchQuery)
             }
         }
     }
 }
 
 #Preview {
-    LocationSearchView(event: Event.sampleData)
+//    @State var location = EventLocation(title: "", subtitle: "", latitude: 0, longitude: 0)
+    @State var location: EventLocation? = nil
+    return LocationSearchView(eventLocation: $location)
 }

@@ -14,6 +14,8 @@ struct LifeView: View {
     
     @Query private var lifeList: [LifeModel]
     @Query private var memoryDayList: [MemoryDayModel]
+    @Query private var eventlist: [MyEvent]
+    @Query private var locations: [EventLocation]
     
     @State private var searchText = ""
     @State private var selectedEvent: EKEvent?
@@ -68,16 +70,16 @@ struct LifeView: View {
                 })
                 
                 Section(isExpanded: $expandEventSection, content: {
-                    ForEach(1..<3) { item in
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Event title").font(.system(.title2, design: .rounded, weight: .bold))
-                            HStack(alignment: .firstTextBaseline) {
-                                Text("\(Date().formatted(date: .numeric, time: .omitted))")
-                                Spacer()
-                                Text("360").font(.title3).bold().foregroundStyle(.green)
-                            }
-                            .foregroundStyle(.gray)
+                    ForEach(eventlist, id:\.self) { event in
+                        ZStack {
+                            eventRow(event: event)
+                            NavigationLink(destination: EventInfoView(eventViewModel: EventViewModel(event: event, modelContext: modelContext, openMode: .edit)), label: { EmptyView() }).opacity(0)
                         }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
+                            Button("Delete", systemImage: "trash", role: .destructive, action: {
+                                modelContext.delete(event)
+                            })
+                        })
                     }
                 }, header: {
                     Text("Upcoming Event").SectionHeaderStyle()
@@ -93,9 +95,14 @@ struct LifeView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu(content: {
                         Button("Life Expectancy", systemImage: "heart", action: { showNewLifeSheet.toggle() })
-                        NavigationLink(destination: MemoryDayInfoView(memoryDayViewModel: MemoryDayViewModel(memoryDay: MemoryDayModel(title: "", date: .now), modelContext: modelContext, openMode: .new)), label: { Label("Memory day", systemImage: "calendar") })
-                        Button("Event", systemImage: "note.text", action: { showNewEventSheet.toggle() })
-                    }, label: { Button("Add", systemImage: "plus", action: {}) })
+                        
+                        NavigationLink(destination: MemoryDayInfoView(memoryDayViewModel: MemoryDayViewModel(memoryDay: MemoryDayModel(title: "", date: .now), modelContext: modelContext, openMode: .new)), label: { Label("Memory day", systemImage: "calendar")
+                        })
+                        
+                        NavigationLink(destination: EventInfoView(eventViewModel: EventViewModel(event: MyEvent(title: "", remark: ""), modelContext: modelContext, openMode: .new)), label: {
+                            Label("Event", systemImage: "note.text")
+                        })
+                    }, label: { Image(systemName: "plus") })
                 }
             }
             .sheet(isPresented: $showEventEditViewController, content: {
@@ -104,11 +111,8 @@ struct LifeView: View {
             .sheet(isPresented: $showNewLifeSheet, content: {
                 LifeInfoView(lifeViewModel: LifeViewModel(life: LifeModel(title: "", birthday: Date()), lifeList: lifeList, modelContext: modelContext, openMode: .new))
             })
-            .sheet(isPresented: $showNewEventSheet, content: {
-                NewEventView(editEvent: false, event: Event.sampleData)
-            })
             .onAppear {
-                print(memoryDayList)
+                print(locations)
             }
             
         }
@@ -125,6 +129,23 @@ struct LifeView: View {
             }
             .font(.system(.title2, design: .rounded, weight: .bold))
         }
+    }
+    
+    func eventRow(event: MyEvent) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(event.title).font(.system(.title2, design: .rounded, weight: .bold))
+            HStack(alignment: .firstTextBaseline) {
+                Text("\(Date().formatted(date: .numeric, time: .omitted))")
+                Spacer()
+                if event.isUpcoming {
+                    Text("\(event.daysToStart)").font(.title3).bold().foregroundStyle(.green)
+                } else if event.isOngoing {
+                    Image(systemName: "hourglass").foregroundStyle(.green)
+                }
+            }
+            .foregroundStyle(.gray)
+        }
+        .strikethrough(event.isFinished ? true : false)
     }
 }
 
