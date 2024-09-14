@@ -7,26 +7,21 @@
 
 import PhotosUI
 import SwiftUI
+import SwiftData
 import MapKit
 
-struct NewEventView: View {
+struct EventInfoView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
     
-    let editEvent: Bool
-    var event: Event
+    @Bindable var eventViewModel: EventViewModel
     
-    @State private var title = ""
-    @State private var remark = ""
-    @State private var location = ""
     @State private var showLocationSearchSheet = false
     
-    @State private var toggleAllDay = false
     //start date time
-    @State private var startDateTime = Date.now
     @State private var showStartDatePicker = false
     @State private var showStartTimePicker = false
     //end date time
-    @State private var endDateTime = Date.now
     @State private var showEndDatePicker = false
     @State private var showEndTimePicker = false
     
@@ -38,32 +33,52 @@ struct NewEventView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Event title", text: $title, prompt: Text("Title"))
-                        .withClearButton(for: $title)
-                    
-                    TextField("Location", text: $location, prompt: Text("Location"))
-                        .disabled(true)
-                        .withClearButton(for: $location)
-                        .contentShape(.rect)
-                        .onTapGesture {
-                            showLocationSearchSheet.toggle()
+                    TextField("Event title", text: $eventViewModel.event.title, prompt: Text("Title"))
+                        .withClearButton(for: $eventViewModel.event.title)
+
+                    HStack {
+                        Button(action: {
+                            showLocationSearchSheet = true
+                        }) {
+                            HStack {
+                                if let location = eventViewModel.eventLocation {
+                                    Text(location.title)
+                                    Spacer()
+                                } else {
+                                    Text("Location").foregroundStyle(.gray).opacity(0.5)
+                                    Spacer()
+                                }
+                            }
+                            .contentShape(Rectangle())
                         }
+                        .buttonStyle(.plain)
+                        
+                        if eventViewModel.eventLocation != nil {
+                            Button(action: {
+                                eventViewModel.eventLocation = nil
+                            }, label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.gray)
+                                    .opacity(0.5)
+                            })
+                        }
+                    }
                     
-                    TextField("Remark", text: $remark, prompt: Text("Remark"), axis: .vertical)
+                    TextField("Remark", text: $eventViewModel.event.remark, prompt: Text("Remark"), axis: .vertical)
                         .multilineTextAlignment(.leading)
                         .lineLimit(5...100)
                 }
                 
                 //date time section
                 Section {
-                    Toggle(isOn: $toggleAllDay, label: {
+                    Toggle(isOn: $eventViewModel.event.allDay, label: {
                         Label("All day", systemImage: "clock.fill")
                             .labelStyle(SettingIconStyle(bgColor: .blue))
                     })
                     HStack {
                         Label("Start", systemImage: "calendar")
                             .labelStyle(SettingIconStyle(bgColor: .green))
-                        
+                        Spacer()
                         Group {
                             Button(action: {
                                 showStartDatePicker.toggle()
@@ -71,17 +86,17 @@ struct NewEventView: View {
                                 toggleState(value: &showEndDatePicker)
                                 toggleState(value: &showEndTimePicker)
                             }, label: {
-                                Text(startDateTime.formatted(date: .numeric, time: .omitted))
+                                Text(eventViewModel.event.startTime.formatted(date: .numeric, time: .omitted))
                             })
                             
-                            if !toggleAllDay {
+                            if !eventViewModel.event.allDay {
                                 Button(action: {
                                     showStartTimePicker.toggle()
                                     toggleState(value: &showStartDatePicker)
                                     toggleState(value: &showEndDatePicker)
                                     toggleState(value: &showEndTimePicker)
                                 }, label: {
-                                    Text(startDateTime.formatted(date: .omitted, time: .shortened))
+                                    Text(eventViewModel.event.startTime.formatted(date: .omitted, time: .shortened))
                                 })
                             }
                         }
@@ -90,12 +105,12 @@ struct NewEventView: View {
                     }
                     
                     if showStartDatePicker {
-                        DatePicker("Start Date", selection: $startDateTime, displayedComponents: [.date])
+                        DatePicker("Start Date", selection: $eventViewModel.event.startTime, displayedComponents: [.date])
                             .datePickerStyle(.graphical)
                     }
                     
                     if showStartTimePicker {
-                        DatePicker("Start Time", selection: $startDateTime, displayedComponents: .hourAndMinute)
+                        DatePicker("Start Time", selection: $eventViewModel.event.startTime, displayedComponents: .hourAndMinute)
                             .datePickerStyle(.wheel)
                     }
                     
@@ -109,17 +124,17 @@ struct NewEventView: View {
                                 toggleState(value: &showStartDatePicker)
                                 toggleState(value: &showStartTimePicker)
                             }, label: {
-                                Text(endDateTime.formatted(date: .numeric, time: .omitted))
+                                Text(eventViewModel.event.endTime.formatted(date: .numeric, time: .omitted))
                             })
                             
-                            if !toggleAllDay {
+                            if !eventViewModel.event.allDay {
                                 Button(action: {
                                     showEndTimePicker.toggle()
                                     toggleState(value: &showEndDatePicker)
                                     toggleState(value: &showStartDatePicker)
                                     toggleState(value: &showStartTimePicker)
                                 }, label: {
-                                    Text(endDateTime.formatted(date: .omitted, time: .shortened))
+                                    Text(eventViewModel.event.endTime.formatted(date: .omitted, time: .shortened))
                                 })
                             }
                         }
@@ -128,17 +143,17 @@ struct NewEventView: View {
                     }
                     
                     if showEndDatePicker {
-                        DatePicker("Start Date", selection: $endDateTime, displayedComponents: [.date])
+                        DatePicker("Start Date", selection: $eventViewModel.event.endTime, displayedComponents: [.date])
                             .datePickerStyle(.graphical)
                     }
                     
                     if showEndTimePicker {
-                        DatePicker("Start Time", selection: $endDateTime, displayedComponents: .hourAndMinute)
+                        DatePicker("Start Time", selection: $eventViewModel.event.endTime, displayedComponents: .hourAndMinute)
                             .datePickerStyle(.wheel)
                     }
                 }
-                .onChange(of: startDateTime) {
-                    if startDateTime.timeIntervalSince(endDateTime) >= 0 {
+                .onChange(of: eventViewModel.event.startTime) {
+                    if eventViewModel.event.startTime.timeIntervalSince(eventViewModel.event.endTime) >= 0 {
                         //TODO: add 1 day to endDateTime
                     }
                 }
@@ -169,20 +184,12 @@ struct NewEventView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction, content: {
-                    if editEvent {
-                        Button("Save", action: {})
-                    } else {
-                        Button("Add", action: {})
-                    }
-                })
-                
-                ToolbarItem(placement: .cancellationAction, content: {
-                    Button("Cancel", action: { dismiss() })
+                    Button(eventViewModel.openMode == .edit ? "Save" : "Add", action: {
+                        eventViewModel.save()
+                        dismiss()
+                    })
                 })
             }
-            .sheet(isPresented: $showLocationSearchSheet, content: {
-                LocationSearchView(event: event)
-            })
             .photosPicker(isPresented: $showGallery, selection: $selectedItems, maxSelectionCount: 20, matching: .images)
             .onChange(of: selectedItems) { oldItems, newItems in
                 for item in newItems where !oldItems.contains(item) {
@@ -193,9 +200,9 @@ struct NewEventView: View {
                     }
                 }
             }
-            .onAppear {
-                print(event.title)
-            }
+            .sheet(isPresented: $showLocationSearchSheet, content: {
+                LocationSearchView(eventLocation: $eventViewModel.eventLocation)
+            })
         }
     }
     
@@ -207,5 +214,8 @@ struct NewEventView: View {
 }
 
 #Preview {
-    NewEventView(editEvent: false, event: Event.sampleData)
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: MyEvent.self, EventLocation.self, configurations: config)
+    let event = MyEvent(title: "event", remark: "", allDay: false)
+    return EventInfoView(eventViewModel: EventViewModel(event: event, modelContext: container.mainContext, openMode: .new))
 }
