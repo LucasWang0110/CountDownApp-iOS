@@ -8,6 +8,8 @@
 import SwiftUI
 import SwiftData
 
+import FirebaseCore
+
 @main
 struct CountDownAppApp: App {
     var sharedModelContainer: ModelContainer = {
@@ -27,6 +29,9 @@ struct CountDownAppApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    // register app delegate for Firebase setup
+//  @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     var body: some Scene {
         WindowGroup {

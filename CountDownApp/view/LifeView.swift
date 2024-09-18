@@ -102,6 +102,9 @@ struct LifeView: View {
                         NavigationLink(destination: EventInfoView(eventViewModel: EventViewModel(event: MyEvent(title: "", remark: ""), modelContext: modelContext, openMode: .new)), label: {
                             Label("Event", systemImage: "note.text")
                         })
+                        NavigationLink(destination: EventCenterView(eventCenterViewModel: EventCenterViewModel(eventlist: eventlist, modelContext: modelContext)), label: {
+                            Label("Event Center", systemImage: "square.3.layers.3d")
+                        })
                     }, label: { Image(systemName: "plus") })
                 }
             }

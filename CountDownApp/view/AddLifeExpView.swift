@@ -86,15 +86,16 @@ struct AddLifeExpView: View {
                 Button("open gallery", systemImage: "camera", action: { showingPhotosPicker.toggle() })
             }
             .photosPicker(isPresented: $showingPhotosPicker, selection: $avatarItem, matching: .images)
-            .onChange(of: avatarItem) {
-                Task {
-                    if let loaded = try? await avatarItem?.loadTransferable(type: Image.self) {
-                        avatarImage = loaded
-                    } else {
-                        print("Failed")
-                    }
-                }
-            }
+//            .onChange(of: avatarItem) {
+//                Task {
+//                    if let data = try? await avatarItem?.loadTransferable(type: Data.self),
+//                       let uiImage = UIImage(data: data) {
+//                       avatarImage = Image(uiImage: uiImage)
+//                    } else {
+//                        print("Failed to load image")
+//                    }
+//                }
+//            }
         }
     }
 }

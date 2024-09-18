@@ -162,13 +162,12 @@ struct EventInfoView: View {
                             Button("Take photo", systemImage: "camera", action: {})
                             Button("Open gallery", systemImage: "photo.on.rectangle", action: { showGallery.toggle() })
                         })
-                        if !images.isEmpty {
+                        if !eventViewModel.event.images.isEmpty {
                             ScrollView(.horizontal) {
                                 HStack {
-                                    ForEach(images.indices, id: \.self) { index in
-                                        ImageItemView(imageData: images[index]) {
-                                            images.remove(at: index)
-                                            selectedItems.remove(at: index)
+                                    ForEach(eventViewModel.event.images.indices, id: \.self) { index in
+                                        ImageItemView(imageData: eventViewModel.event.images[index]) {
+                                            eventViewModel.event.images.remove(at: index)
                                         }
                                     }
                                 }
@@ -176,10 +175,6 @@ struct EventInfoView: View {
                             .scrollIndicators(.hidden)
                         }
                     }
-                }
-                
-                Section {
-                    Button("Load from Event Center", systemImage: "square.and.arrow.down", action: {})
                 }
             }
             .navigationTitle(Text("New Event"))
@@ -196,8 +191,9 @@ struct EventInfoView: View {
             .onChange(of: selectedItems) { oldItems, newItems in
                 for item in newItems where !oldItems.contains(item) {
                     Task {
-                        if let data = try? await item.loadTransferable(type: Data.self), !images.contains(data) {
-                            images.append(data)
+                        
+                        if let data = try? await item.loadTransferable(type: Data.self), !eventViewModel.event.images.contains(data) {
+                            eventViewModel.event.images.append(data)
                         }
                     }
                 }

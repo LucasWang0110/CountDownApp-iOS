@@ -218,7 +218,6 @@ struct NewItemView: View {
         let item = Item(title: title, remark: remark, allDay: toggleAllDay, startTime: startDateTime, endTime: endDateTime, remind: selectedRemind, repeatInfo: RepeatEnum.none, flag: toggleFlag, priority: selectedPriority, parentListId: itemList.id, isDone: false, createTime: createTime, updateTime: createTime)
         modelContext.insert(item)
         itemList.items.append(item)
-        // 保存上下文
         do {
             try modelContext.save()
             print("Item saved successfully.")
