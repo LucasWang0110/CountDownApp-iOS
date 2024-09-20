@@ -17,6 +17,7 @@ struct ItemListView: View {
     @Query private var itemList: [ItemList]
     @Query private var items: [Item]
     
+    @State private var searchText = ""
     @State private var displayNewItemListSheet = false
     @State private var displayOpenItemListSheet = false
     
@@ -68,8 +69,6 @@ struct ItemListView: View {
                 }, header: {
                     Text(LocalizedStringKey("My List"))
                         .textCase(.none)
-                        .font(.system(.title2, design: .rounded, weight: .bold))
-                        .foregroundStyle(colorScheme == .light ? .black : .white)
                 })
                 .sheet(isPresented: $displayListInfoSheet, content: {
                     ItemListEditView(itemList: $currentList)
@@ -80,7 +79,8 @@ struct ItemListView: View {
                 AllItemView(sectionType: type, itemList: itemList)
             }
             .background(Color(uiColor: .secondarySystemBackground))
-            .listSectionSpacing(10)
+            .navigationTitle(Text("My tasks"))
+            .searchable(text: $searchText)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("New List", systemImage: "rectangle.stack.badge.plus", action: {

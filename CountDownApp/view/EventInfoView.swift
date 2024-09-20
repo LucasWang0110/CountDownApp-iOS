@@ -165,10 +165,10 @@ struct EventInfoView: View {
                         if !eventViewModel.event.images.isEmpty {
                             ScrollView(.horizontal) {
                                 HStack {
-                                    ForEach(eventViewModel.event.images.indices, id: \.self) { index in
-                                        ImageItemView(imageData: eventViewModel.event.images[index]) {
+                                    ForEach(Array(eventViewModel.event.images.enumerated()), id: \.offset) { index, imageData in
+                                        ImageItemView(imageData: imageData, onDelete: {
                                             eventViewModel.event.images.remove(at: index)
-                                        }
+                                        })
                                     }
                                 }
                             }
@@ -191,9 +191,9 @@ struct EventInfoView: View {
             .onChange(of: selectedItems) { oldItems, newItems in
                 for item in newItems where !oldItems.contains(item) {
                     Task {
-                        
                         if let data = try? await item.loadTransferable(type: Data.self), !eventViewModel.event.images.contains(data) {
                             eventViewModel.event.images.append(data)
+                            print("Added image. Total images: \(eventViewModel.event.images.count)")
                         }
                     }
                 }

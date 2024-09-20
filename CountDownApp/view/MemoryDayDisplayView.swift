@@ -21,10 +21,16 @@ struct MemoryDayDisplayView: View {
                         .background(Color(hex: "F6EACB")!)
                         .font(.system(size: 24, weight: .bold, design: .rounded))
                     
-                    Text("\(memoryDay.daysUntilToday)")
-                        .flexPadding()
-                        .background(.white)
-                        .font(.system(size: 80, weight: .bold, design: .rounded))
+                    VStack {
+                        Text("\(memoryDay.daysUntilToday)")
+                            .font(.system(size: 80, weight: .bold, design: .rounded))
+                        if let timeElapsed = memoryDay.timeElapsed {
+                            Text(timeElapsed)
+                                .font(.system(size: 20, weight: .bold, design: .rounded))
+                        }
+                    }
+                    .flexPadding()
+                    .background(.white)
                     
                     Divider()
                     
@@ -60,5 +66,10 @@ extension View {
 }
 
 #Preview {
-    MemoryDayDisplayView(memoryDay: MemoryDayModel(title: "Some day", date: .now))
+    let calendar = Calendar.current
+    var components = DateComponents()
+    components.year = 2023
+    components.month = 2
+    components.day = 12
+    return MemoryDayDisplayView(memoryDay: MemoryDayModel(title: "Some day", date: calendar.date(from: components)!))
 }

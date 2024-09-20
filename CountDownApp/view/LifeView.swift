@@ -114,9 +114,6 @@ struct LifeView: View {
             .sheet(isPresented: $showNewLifeSheet, content: {
                 LifeInfoView(lifeViewModel: LifeViewModel(life: LifeModel(title: "", birthday: Date()), lifeList: lifeList, modelContext: modelContext, openMode: .new))
             })
-            .onAppear {
-                print(locations)
-            }
             
         }
     }

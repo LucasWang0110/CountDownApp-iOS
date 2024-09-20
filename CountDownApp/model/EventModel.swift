@@ -17,7 +17,7 @@ class MyEvent: Identifiable, CustomStringConvertible {
     var allDay: Bool
     var startTime: Date
     var endTime: Date
-    var images: [Data] = []
+    @Attribute(.externalStorage) var images: [Data] = []
     
     var createTime: Date
     var updateTime: Date

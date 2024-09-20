@@ -61,6 +61,30 @@ import SwiftData
         }
     }
     
+    var timeElapsed: String? {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let targetDate = calendar.startOfDay(for: date)
+        
+        let components = calendar.dateComponents([.year, .month, .day], from: targetDate, to: today)
+        
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .full
+        formatter.allowedUnits = [.year, .month, .day]
+
+        // If over a year
+        if let years = components.year, years > 0 {
+            let yearComponents = DateComponents(year: years, month: components.day, day: components.day)
+            return formatter.string(from: yearComponents) ?? "\(years) years"
+        }
+        // If over a month
+        if let months = components.month, months > 0 {
+            let monthComponents = DateComponents(month: months, day: components.day)
+            return formatter.string(from: monthComponents) ?? "\(months) months"
+        }
+        return nil
+    }
+    
     var description: String {
         return """
         MemoryDayModel:

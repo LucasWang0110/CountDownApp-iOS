@@ -6,24 +6,27 @@
 //
 
 import SwiftUI
+import QuickLookThumbnailing
 
 struct ImageItemView: View {
     let imageData: Data
     let onDelete: () -> Void
     
+    @State private var uiImage: UIImage? = nil
+    @State private var isLoading = true
     @State private var showFullScreen = false
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            if let uiImage = UIImage(data: imageData) {
+            if isLoading {
+                ProgressView()
+                    .frame(width: 100, height: 100)
+            } else if let uiImage = uiImage {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 100, height: 100)
                     .cornerRadius(10)
-                    .onTapGesture {
-                        showFullScreen.toggle()
-                    }
             }
             
             Button(action: onDelete) {
@@ -34,8 +37,56 @@ struct ImageItemView: View {
             }
             .padding(5)
         }
+        .onAppear {
+            Task {
+                await loadThumbnailAsync()
+            }
+        }
         .fullScreenCover(isPresented: $showFullScreen) {
             FullScreenImageView(imageData: imageData, isPresented: $showFullScreen)
+        }
+    }
+    
+    private func loadThumbnailAsync() async {
+        let fileURL = saveImageToTempDirectory()
+        let size = CGSize(width: 100, height: 100)
+        
+        let request = await QLThumbnailGenerator.Request(fileAt: fileURL,
+                                                   size: size,
+                                                   scale: UIScreen.main.scale,
+                                                   representationTypes: .thumbnail)
+        
+        let generator = QLThumbnailGenerator.shared
+        do {
+            let thumbnail = try await generator.generateBestRepresentation(for: request)
+            await MainActor.run {
+                self.uiImage = thumbnail.uiImage
+                self.isLoading = false
+            }
+        } catch {
+            print("Failed to generate thumbnail: \(error)")
+        }
+    }
+    
+    private func saveImageToTempDirectory() -> URL {
+        let tempDirectory = FileManager.default.temporaryDirectory
+        let fileURL = tempDirectory.appendingPathComponent(UUID().uuidString + ".jpg")
+        
+        do {
+            try imageData.write(to: fileURL)
+        } catch {
+            print("Error saving image to temp directory: \(error)")
+        }
+        
+        return fileURL
+    }
+    
+    private func loadImageAsync() async {
+        if let loadedImage = UIImage(data: imageData) {
+            await MainActor.run {
+                self.uiImage = loadedImage
+                self.isLoading = false
+            }
         }
     }
 }

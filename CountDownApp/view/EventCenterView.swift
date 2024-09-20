@@ -15,6 +15,7 @@ struct EventCenterView: View {
     
     @State private var searchText = ""
     @State private var isLoading = false
+    @State private var showActionSheet = false
     
     var body: some View {
         NavigationStack {
@@ -26,7 +27,6 @@ struct EventCenterView: View {
                     .opacity(0)
                     eventRow(item)
                 }
-                
             }
             .listStyle(.plain)
             .navigationTitle(Text("Event Center"))
@@ -43,6 +43,15 @@ struct EventCenterView: View {
                 })
             }
             .toolbar(.hidden, for: .tabBar)
+            .confirmationDialog(
+                "You already have this event in your list.",
+                isPresented: $showActionSheet,
+                titleVisibility: .visible,
+                actions: {
+                    Button("Replace", action: {})
+                    Button("Duplicate", action: {})
+                    Button("Cancel", role: .cancel, action: {})
+                })
         }
     }
     
@@ -63,7 +72,11 @@ struct EventCenterView: View {
             
             if editMode?.wrappedValue.isEditing == false {
                 Button(action: {
-                    eventCenterViewModel.addEventToLocal(item)
+                    if item.isExist {
+                        showActionSheet.toggle()
+                    } else {
+                        eventCenterViewModel.addEventToLocal(item)
+                    }
                 }, label: {
                     if item.isLoading {
                         ProgressView()
