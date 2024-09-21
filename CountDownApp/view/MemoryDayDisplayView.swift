@@ -31,6 +31,7 @@ struct MemoryDayDisplayView: View {
                     }
                     .flexPadding()
                     .background(.white)
+                    .foregroundStyle(.black)
                     
                     Divider()
                     

@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class ItemList: Identifiable {
+class ItemList: Identifiable, NSCopying, Equatable {
     var id: String
     
     var title: String
@@ -26,6 +26,15 @@ class ItemList: Identifiable {
         self.icon = icon
         self.createTime = Date()
         self.updateTime = Date()
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        var copy = ItemList(title: self.title, themeColor: self.themeColor, icon: self.icon)
+        return copy
+    }
+    
+    static func == (lhs: ItemList, rhs: ItemList) -> Bool {
+        return lhs.title == rhs.title && lhs.themeColor == rhs.themeColor && lhs.icon == rhs.title
     }
     
     func removeItem(item: Item) {

@@ -16,7 +16,7 @@ struct ContentView: View {
                 .tabItem { Image(systemName: "person.2.crop.square.stack.fill") }
                 .tag(0)
             
-            ItemListView()
+            MyListView()
                 .tabItem { Image(systemName: "checkmark.rectangle.stack") }
                 .tag(1)
         }

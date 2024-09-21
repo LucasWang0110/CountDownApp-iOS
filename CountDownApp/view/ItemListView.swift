@@ -1,117 +1,140 @@
 //
-//  ItemListView.swift
+//  ItemListInfoView.swift
 //  CountDownApp
 //
-//  Created by lucas on 2024/8/3.
+//  Created by lucas on 2024/8/4.
 //
 
 import SwiftUI
 
-import SwiftUI
-import SwiftData
-
 struct ItemListView: View {
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.modelContext) private var modelContext
     
-    @Query private var itemList: [ItemList]
-    @Query private var items: [Item]
+    var itemList: ItemList
     
-    @State private var searchText = ""
-    @State private var displayNewItemListSheet = false
-    @State private var displayOpenItemListSheet = false
+    @State private var expandInprogress = true
+    @State private var expandOverTime = true
+    @State private var expandDone = true
+    @State private var displayNewItemSheet = false
     
-    @State private var currentList: ItemList = ItemList.sampleData
-    @State private var displayListInfoSheet = false
-    
-    let columns = [GridItem(.flexible()), GridItem(.flexible())]
-    @State private var path = NavigationPath()
-
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack {
             List {
-                //total section
-                Section {
-                    LazyVGrid(columns: columns) {
-                        ListCard(icon: { CircleSymbolWithText(bgColor: .green, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Ongoing")
-                            .onTapGesture { path.append(SectionType.ongoing) }
-                        ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "clock.badge.xmark") }, cardValue: 12, cardTitle: "Overtime")
-                            .onTapGesture { path.append(SectionType.overTime) }
-                        ListCard(icon: { CircleSymbol(bgColor: .blue, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Total")
-                            .onTapGesture { path.append(SectionType.total) }
-                        ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Flag")
-                            .onTapGesture { path.append(SectionType.flag) }
-                    }
+                if !itemList.items.filter({ $0.isInprogress() }).isEmpty {
+                    Section(isExpanded: $expandInprogress, content: {
+                        ForEach(itemList.items.filter({ $0.isInprogress() }), id:\.id) { item in
+                            ItemRow(item: item)
+                                .swipeActions(edge: .leading, allowsFullSwipe: true, content: {
+                                    Button("Mark as Done", systemImage: "checkmark", action: { item.isDone = true })
+                                        .tint(Color.green)
+                                })
+                                .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                    Button("Delete", systemImage: "trash", role: .destructive, action: {
+                                        itemList.removeItem(item: item)
+                                        modelContext.delete(item)
+                                    })
+                                })
+                                .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                    Button("Flag", systemImage: item.flag ? "flag.slash.fill" : "flag.fill", action: { item.flag = !item.flag })
+                                        .tint(.orange)
+                                })
+                                .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                    Button("Info", systemImage: "info.circle.fill", action: {  })
+                                })
+                        }
+                    }, header: {
+                        Text("In Progress")
+                            .font(.title2)
+                            .textCase(.none)
+                            .bold()
+                            .listRowInsets(.init(top: 20, leading: 0, bottom: 20, trailing: 0))
+                    })
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
                 }
-                .listRowBackground(Color.clear)
-                .listRowInsets(EdgeInsets())
                 
-                //item list section
-                Section(content: {
-                    ForEach(itemList, id: \.self) { item in
-                        NavigationLink(destination: ItemListInfoView(itemList: item), label: {
-                            ListRow(itemList: item)
-                                .badge(item.items.count)
-                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                    Button("Delete", systemImage: "trash.fill", role: .destructive, action: {
-                                        deleteList(itemList: item)
-                                    })
-                                    Button(action: {
-                                        currentList = item
-                                        displayListInfoSheet.toggle()
-                                    }, label: {
-                                        Image(systemName: "info.circle.fill")
-                                    })
-                                }
-                        })
-                    }
-                    
-                }, header: {
-                    Text(LocalizedStringKey("My List"))
-                        .textCase(.none)
-                })
-                .sheet(isPresented: $displayListInfoSheet, content: {
-                    ItemListEditView(itemList: $currentList)
-                })
-            
+                if !itemList.items.filter({ $0.isOverTime() }).isEmpty {
+                    Section(isExpanded: $expandOverTime, content: {
+                        ForEach(itemList.items.filter({ $0.isOverTime() }), id:\.id) { item in
+                            ItemRow(item: item)
+                            .swipeActions(edge: .leading, allowsFullSwipe: true, content: {
+                                Button("Mark as Done", systemImage: "checkmark", action: { item.isDone = true })
+                                    .tint(Color.green)
+                            })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                Button("Delete", systemImage: "trash", role: .destructive, action: {
+                                    itemList.removeItem(item: item)
+                                    modelContext.delete(item)
+                                })
+                            })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                Button("Flag", systemImage: item.flag ? "flag.slash.fill" : "flag.fill", action: { item.flag = !item.flag })
+                                    .tint(.orange)
+                            })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                Button("Info", systemImage: "info.circle.fill", action: {  })
+                            })
+                        }
+                    }, header: {
+                        Text("Over Time")
+                            .font(.title2)
+                            .textCase(.none)
+                            .bold()
+                            .listRowInsets(.init(top: 20, leading: 0, bottom: 20, trailing: 0))
+                    })
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets())
+                }
+                
+                if !itemList.items.filter({ $0.isDone }).isEmpty {
+                    Section(isExpanded: $expandDone, content: {
+                        ForEach(itemList.items.filter({ $0.isDone }), id:\.id) { item in
+                            ItemRow(item: item)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                Button("Delete", systemImage: "trash", role: .destructive, action: {
+                                    itemList.removeItem(item: item)
+                                    modelContext.delete(item)
+                                })
+                            })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                Button("Flag", systemImage: item.flag ? "flag.slash.fill" : "flag.fill", action: { item.flag = !item.flag })
+                                    .tint(.orange)
+                            })
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                Button("Info", systemImage: "info.circle.fill", action: {  })
+                            })
+                        }
+                    }, header: {
+                        Text("Done")
+                            .font(.title2)
+                            .textCase(.none)
+                            .bold()
+                            .listRowInsets(.init(top: 20, leading: 0, bottom: 20, trailing: 0))
+                    })
+                    .listRowInsets(EdgeInsets())
+                }
+                
             }
-            .navigationDestination(for: SectionType.self) { type in
-                AllItemView(sectionType: type, itemList: itemList)
-            }
-            .background(Color(uiColor: .secondarySystemBackground))
-            .navigationTitle(Text("My tasks"))
-            .searchable(text: $searchText)
+            .listStyle(.sidebar)
+            .navigationTitle(itemList.title)
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("New List", systemImage: "rectangle.stack.badge.plus", action: {
-                        displayNewItemListSheet.toggle()
+                    Button("Add Item", systemImage: "note.text.badge.plus", action: {
+                        displayNewItemSheet.toggle()
                     })
+                    .sheet(isPresented: $displayNewItemSheet) {
+                        NewItemView(itemList: itemList)
+                    }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("More", systemImage: "ellipsis.circle", action: {})
                 }
             }
-            .sheet(isPresented: $displayNewItemListSheet) {
-                NewItemListView()
-            }
-        }
-    }
-    
-    func addList() {
-        withAnimation {
-            let itemList = ItemList(title: "Title", themeColor: "264653", icon: "folder.fill")
-            modelContext.insert(itemList)
-        }
-    }
-    
-    func deleteList(itemList: ItemList) {
-        withAnimation {
-            modelContext.delete(itemList)
         }
     }
 }
 
 #Preview {
-    ItemListView()
-        .modelContainer(for: ItemList.self, inMemory: true)
+    ItemListView(itemList: ItemList.sampleData)
 }

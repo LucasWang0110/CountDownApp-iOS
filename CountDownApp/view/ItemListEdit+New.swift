@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct ItemListEditView: View {
+struct ItemListInfoView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) var dismiss
     
-    @Binding var itemList: ItemList
-    @State private var listName: String = "11"
+    @Bindable var itemListViewModel: ItemListViewModel
     
     let gridItemLayout = [GridItem(.adaptive(minimum: 44))]
     
@@ -25,8 +25,8 @@ struct ItemListEditView: View {
                     VStack {
                         ZStack {
                             Circle()
-                                .foregroundStyle(Color(hex: itemList.themeColor)!)
-                            Image(systemName: itemList.icon)
+                                .foregroundStyle(Color(hex: itemListViewModel.itemList.themeColor)!)
+                            Image(systemName: itemListViewModel.itemList.icon)
                                 .foregroundStyle(.white)
                                 .font(.system(size: 40))
                                 .bold()
@@ -34,7 +34,7 @@ struct ItemListEditView: View {
                         .frame(width: 96, height: 96)
                         
                         HStack {
-                            TextField("", text: $listName, prompt: Text("List name"))
+                            TextField("", text: $itemListViewModel.itemList.title, prompt: Text("List name"))
                                 .font(.title)
                                 .bold()
                                 .lineLimit(1)
@@ -53,14 +53,14 @@ struct ItemListEditView: View {
                             ZStack {
                                 Circle()
                                     .stroke(
-                                        .gray.opacity(itemList.themeColor == color.toHex()! ? 0.3 : 0),
+                                        .gray.opacity(itemListViewModel.itemList.themeColor == color.toHex()! ? 0.3 : 0),
                                         lineWidth: 4)
                                 Circle()
                                     .fill(color)
                                     .frame(width: 38)
                             }
                             .onTapGesture {
-                                itemList.themeColor = color.toHex()!
+                                itemListViewModel.itemList.themeColor = color.toHex()!
                             }
                         }
                     }
@@ -72,10 +72,10 @@ struct ItemListEditView: View {
                             ZStack {
                                 Circle()
                                     .stroke(
-                                        .gray.opacity(itemList.icon == symbol ? 0.3 : 0),
+                                        .gray.opacity(itemListViewModel.itemList.icon == symbol ? 0.3 : 0),
                                         lineWidth: 4)
                                 Button(action: {
-                                    itemList.icon = symbol
+                                    itemListViewModel.itemList.icon = symbol
                                 }, label: {
                                     Image(systemName: symbol)
                                         .foregroundStyle( colorScheme == .light ? .gray : .white)
@@ -97,18 +97,18 @@ struct ItemListEditView: View {
                     })
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done", action: {
-                        dismiss()
+                    Button("Save", action: {
+                        itemListViewModel.save()
                     })
                 }
-            }
-            .onAppear {
-                listName = itemList.title
             }
         }
     }
 }
 
 #Preview {
-    ItemListEditView(itemList: .constant(ItemList.sampleData))
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: ItemList.self, configurations: config)
+    let model = ItemList(title: "", themeColor: sampleColors[0].toHex()!, icon: sampleSymbols[0])
+    return ItemListInfoView(itemListViewModel: ItemListViewModel(itemList: model, modelContext: container.mainContext, openMode: .new))
 }

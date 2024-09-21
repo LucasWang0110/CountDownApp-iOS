@@ -18,13 +18,12 @@
 		A059AD422C5D39D300A12DAB /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD412C5D39D300A12DAB /* ColorExtension.swift */; };
 		A059AD442C5DD33A00A12DAB /* ListCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD432C5DD33A00A12DAB /* ListCard.swift */; };
 		A059AD462C5DD36C00A12DAB /* CircleSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD452C5DD36C00A12DAB /* CircleSymbol.swift */; };
-		A059AD482C5DED6900A12DAB /* NewItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD472C5DED6900A12DAB /* NewItemListView.swift */; };
 		A059AD4C2C5DEDAD00A12DAB /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD4A2C5DEDAD00A12DAB /* DateFormatter.swift */; };
 		A059AD4D2C5DEDAD00A12DAB /* SampleSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD4B2C5DEDAD00A12DAB /* SampleSymbol.swift */; };
-		A059AD4F2C5DF08600A12DAB /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD4E2C5DF08600A12DAB /* ItemListView.swift */; };
+		A059AD4F2C5DF08600A12DAB /* MyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD4E2C5DF08600A12DAB /* MyListView.swift */; };
 		A059AD512C5DF6AC00A12DAB /* SampleColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD502C5DF6AC00A12DAB /* SampleColor.swift */; };
-		A059AD532C5E833800A12DAB /* ItemListEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD522C5E833800A12DAB /* ItemListEditView.swift */; };
-		A059AD552C5F647400A12DAB /* ItemListInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD542C5F647400A12DAB /* ItemListInfoView.swift */; };
+		A059AD532C5E833800A12DAB /* ItemListEdit+New.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD522C5E833800A12DAB /* ItemListEdit+New.swift */; };
+		A059AD552C5F647400A12DAB /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD542C5F647400A12DAB /* ItemListView.swift */; };
 		A059AD572C5F649D00A12DAB /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD562C5F649D00A12DAB /* ItemRow.swift */; };
 		A059AD592C5F64D100A12DAB /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD582C5F64D100A12DAB /* CustomProgressView.swift */; };
 		A059AD5B2C5F693300A12DAB /* NewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A059AD5A2C5F693300A12DAB /* NewItemView.swift */; };
@@ -43,6 +42,7 @@
 		A09AFEB12C71D1B40034F9AF /* EventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEB02C71D1B40034F9AF /* EventInfoView.swift */; };
 		A09AFEB32C71D33D0034F9AF /* TextField+ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEB22C71D33D0034F9AF /* TextField+ClearButton.swift */; };
 		A0B90E782C9AFDCA00F87EF7 /* EventCenterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B90E772C9AFDCA00F87EF7 /* EventCenterViewModel.swift */; };
+		A0B90E7A2C9DC7F600F87EF7 /* ItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B90E792C9DC7F600F87EF7 /* ItemListViewModel.swift */; };
 		A0E893FB2C74E0F700BCDD9F /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E893FA2C74E0F700BCDD9F /* EventModel.swift */; };
 		A0E893FF2C7F623800BCDD9F /* SectioinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E893FE2C7F623800BCDD9F /* SectioinType.swift */; };
 		A0E894012C834AB400BCDD9F /* LifeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E894002C834AB400BCDD9F /* LifeModel.swift */; };
@@ -98,13 +98,12 @@
 		A059AD412C5D39D300A12DAB /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		A059AD432C5DD33A00A12DAB /* ListCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCard.swift; sourceTree = "<group>"; };
 		A059AD452C5DD36C00A12DAB /* CircleSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleSymbol.swift; sourceTree = "<group>"; };
-		A059AD472C5DED6900A12DAB /* NewItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemListView.swift; sourceTree = "<group>"; };
 		A059AD4A2C5DEDAD00A12DAB /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		A059AD4B2C5DEDAD00A12DAB /* SampleSymbol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleSymbol.swift; sourceTree = "<group>"; };
-		A059AD4E2C5DF08600A12DAB /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
+		A059AD4E2C5DF08600A12DAB /* MyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListView.swift; sourceTree = "<group>"; };
 		A059AD502C5DF6AC00A12DAB /* SampleColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleColor.swift; sourceTree = "<group>"; };
-		A059AD522C5E833800A12DAB /* ItemListEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListEditView.swift; sourceTree = "<group>"; };
-		A059AD542C5F647400A12DAB /* ItemListInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListInfoView.swift; sourceTree = "<group>"; };
+		A059AD522C5E833800A12DAB /* ItemListEdit+New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemListEdit+New.swift"; sourceTree = "<group>"; };
+		A059AD542C5F647400A12DAB /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
 		A059AD562C5F649D00A12DAB /* ItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRow.swift; sourceTree = "<group>"; };
 		A059AD582C5F64D100A12DAB /* CustomProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		A059AD5A2C5F693300A12DAB /* NewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemView.swift; sourceTree = "<group>"; };
@@ -124,6 +123,7 @@
 		A09AFEB02C71D1B40034F9AF /* EventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfoView.swift; sourceTree = "<group>"; };
 		A09AFEB22C71D33D0034F9AF /* TextField+ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+ClearButton.swift"; sourceTree = "<group>"; };
 		A0B90E772C9AFDCA00F87EF7 /* EventCenterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCenterViewModel.swift; sourceTree = "<group>"; };
+		A0B90E792C9DC7F600F87EF7 /* ItemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewModel.swift; sourceTree = "<group>"; };
 		A0E893FA2C74E0F700BCDD9F /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		A0E893FE2C7F623800BCDD9F /* SectioinType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectioinType.swift; sourceTree = "<group>"; };
 		A0E894002C834AB400BCDD9F /* LifeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeModel.swift; sourceTree = "<group>"; };
@@ -228,10 +228,9 @@
 			isa = PBXGroup;
 			children = (
 				A059AD6C2C6271DA00A12DAB /* LifeView.swift */,
-				A059AD4E2C5DF08600A12DAB /* ItemListView.swift */,
-				A059AD472C5DED6900A12DAB /* NewItemListView.swift */,
-				A059AD522C5E833800A12DAB /* ItemListEditView.swift */,
-				A059AD542C5F647400A12DAB /* ItemListInfoView.swift */,
+				A059AD4E2C5DF08600A12DAB /* MyListView.swift */,
+				A059AD522C5E833800A12DAB /* ItemListEdit+New.swift */,
+				A059AD542C5F647400A12DAB /* ItemListView.swift */,
 				A059AD5A2C5F693300A12DAB /* NewItemView.swift */,
 				A059AD6E2C638DE300A12DAB /* AllItemView.swift */,
 				A09AFE9D2C68C0A00034F9AF /* LifeInfoView.swift */,
@@ -321,6 +320,7 @@
 				A0F6672E2C8CC39B00624F95 /* MemoryDayViewModel.swift */,
 				A0F667302C8E06C300624F95 /* EventViewModel.swift */,
 				A0B90E772C9AFDCA00F87EF7 /* EventCenterViewModel.swift */,
+				A0B90E792C9DC7F600F87EF7 /* ItemListViewModel.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -463,11 +463,11 @@
 				A03F3E032C99C278005EDBE8 /* EventDetailView.swift in Sources */,
 				A09AFEA72C6BA26C0034F9AF /* AddLifeExpView.swift in Sources */,
 				A059AD6D2C6271DA00A12DAB /* LifeView.swift in Sources */,
-				A059AD482C5DED6900A12DAB /* NewItemListView.swift in Sources */,
 				A059AD592C5F64D100A12DAB /* CustomProgressView.swift in Sources */,
 				A0E893FB2C74E0F700BCDD9F /* EventModel.swift in Sources */,
-				A059AD532C5E833800A12DAB /* ItemListEditView.swift in Sources */,
-				A059AD552C5F647400A12DAB /* ItemListInfoView.swift in Sources */,
+				A059AD532C5E833800A12DAB /* ItemListEdit+New.swift in Sources */,
+				A0B90E7A2C9DC7F600F87EF7 /* ItemListViewModel.swift in Sources */,
+				A059AD552C5F647400A12DAB /* ItemListView.swift in Sources */,
 				A0F667312C8E06C300624F95 /* EventViewModel.swift in Sources */,
 				A0F6672B2C888B9A00624F95 /* MemoryDayDisplayView.swift in Sources */,
 				A09AFEB32C71D33D0034F9AF /* TextField+ClearButton.swift in Sources */,
@@ -478,7 +478,7 @@
 				A09AFEB12C71D1B40034F9AF /* EventInfoView.swift in Sources */,
 				A0F6672D2C8B42D800624F95 /* MemoryDayModel.swift in Sources */,
 				A059AD5E2C5F69B200A12DAB /* SettingIconStyle.swift in Sources */,
-				A059AD4F2C5DF08600A12DAB /* ItemListView.swift in Sources */,
+				A059AD4F2C5DF08600A12DAB /* MyListView.swift in Sources */,
 				A0F6671E2C84BB2F00624F95 /* MemoryDayInfoView.swift in Sources */,
 				A059AD422C5D39D300A12DAB /* ColorExtension.swift in Sources */,
 				A059AD462C5DD36C00A12DAB /* CircleSymbol.swift in Sources */,
