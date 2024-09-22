@@ -124,7 +124,7 @@ struct ItemListView: View {
                         displayNewItemSheet.toggle()
                     })
                     .sheet(isPresented: $displayNewItemSheet) {
-                        NewItemView(itemList: itemList)
+                        ItemView(itemList: itemList)
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {

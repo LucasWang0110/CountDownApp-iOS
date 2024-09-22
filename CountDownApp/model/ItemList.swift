@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class ItemList: Identifiable, NSCopying, Equatable {
+class ItemList: Identifiable, NSCopying, Equatable, CustomStringConvertible {
     var id: String
     
     var title: String
@@ -29,12 +29,11 @@ class ItemList: Identifiable, NSCopying, Equatable {
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        var copy = ItemList(title: self.title, themeColor: self.themeColor, icon: self.icon)
-        return copy
+        return ItemList(title: self.title, themeColor: self.themeColor, icon: self.icon)
     }
     
     static func == (lhs: ItemList, rhs: ItemList) -> Bool {
-        return lhs.title == rhs.title && lhs.themeColor == rhs.themeColor && lhs.icon == rhs.title
+        return lhs.title == rhs.title && lhs.themeColor == rhs.themeColor && lhs.icon == rhs.icon
     }
     
     func removeItem(item: Item) {
@@ -44,6 +43,18 @@ class ItemList: Identifiable, NSCopying, Equatable {
                 return
             }
         }
+    }
+    
+    var description: String {
+        return """
+        ItemList:
+        ID: \(id)
+        Title: \(title)
+        themeColor: \(themeColor)
+        icon: \(icon)
+        Created At: \(createTime)
+        Updated At: \(updateTime)
+        """
     }
     
     static var sampleData = ItemList(title: "Title", themeColor: "FF3B30", icon: "folder.fill")

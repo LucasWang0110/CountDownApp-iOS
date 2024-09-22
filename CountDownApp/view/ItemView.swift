@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewItemView: View {
+struct ItemView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
     
@@ -228,5 +228,5 @@ struct NewItemView: View {
 }
 
 #Preview {
-    NewItemView(itemList: ItemList.sampleData)
+    ItemView(itemList: ItemList.sampleData)
 }

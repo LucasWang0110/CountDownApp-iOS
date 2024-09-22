@@ -10,17 +10,13 @@ import SwiftData
 
 @Observable class ItemListViewModel {
     var itemList: ItemList
-    var copiedItemList: ItemList?
+    var copiedItemList: ItemList
     var modelContext: ModelContext
     var openMode: OpenMode
     
     init(itemList: ItemList, modelContext: ModelContext, openMode: OpenMode) {
-        if openMode == .new {
-            self.itemList = itemList
-        } else {
-            self.itemList = itemList.copy() as! ItemList
-            self.copiedItemList = itemList
-        }
+        self.itemList = openMode == .new ? itemList : itemList.copy() as! ItemList
+        self.copiedItemList = itemList
         self.modelContext = modelContext
         self.openMode = openMode
     }
@@ -33,20 +29,19 @@ import SwiftData
         }
     }
     
+    func somethingChanged() -> Bool {
+        return itemList != copiedItemList
+    }
+    
     private func saveModel() {
         modelContext.insert(itemList)
     }
     
     private func updateModel() {
-        if let copy = copiedItemList {
-            if itemList == copy {
-                copy.title = itemList.title
-                copy.themeColor = itemList.themeColor
-                copy.icon = itemList.icon
-                copy.updateTime = Date()
-                try? modelContext.save()
-            }
-        }
-        
+        copiedItemList.title = itemList.title
+        copiedItemList.themeColor = itemList.themeColor
+        copiedItemList.icon = itemList.icon
+        copiedItemList.updateTime = Date()
+        try? modelContext.save()
     }
 }

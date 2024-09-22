@@ -14,6 +14,7 @@ struct ItemListInfoView: View {
     @Environment(\.dismiss) var dismiss
     
     @Bindable var itemListViewModel: ItemListViewModel
+    @State private var showCancelConfirm = false
     
     let gridItemLayout = [GridItem(.adaptive(minimum: 44))]
     
@@ -93,15 +94,24 @@ struct ItemListInfoView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel", action: {
-                        dismiss()
+                        if itemListViewModel.somethingChanged() {
+                            showCancelConfirm.toggle()
+                        } else {
+                            dismiss()
+                        }
                     })
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save", action: {
                         itemListViewModel.save()
+                        dismiss()
                     })
                 }
             }
+            .confirmationDialog("", isPresented: $showCancelConfirm, actions: {
+                Button("Drop change", role: .destructive, action: { dismiss() })
+                Button("Cancel", role: .cancel, action: { showCancelConfirm.toggle() })
+            })
         }
     }
 }
