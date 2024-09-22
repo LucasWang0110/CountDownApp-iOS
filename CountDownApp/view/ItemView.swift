@@ -6,30 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ItemView: View {
     @Environment(\.dismiss) var dismiss
-    @Environment(\.modelContext) private var modelContext
     
-    var itemList: ItemList
+    @Bindable var itemViewModel: ItemViewModel
     
-    @State private var title = ""
-    @State private var remark = ""
-    @State private var toggleAllDay = false
     //start date time
-    @State private var startDateTime = Date.now
     @State private var showStartDatePicker = false
     @State private var showStartTimePicker = false
     //end date time
-    @State private var endDateTime = Date.now
     @State private var showEndDatePicker = false
     @State private var showEndTimePicker = false
-    //remind
-    @State private var selectedRemind: Remind = .none
-    //priority
-    @State private var selectedPriority: Priority = .none
-    //flag
-    @State private var toggleFlag = false
+    
+    @State private var showCancelConfirm = false
     
     var body: some View {
         NavigationStack {
@@ -37,8 +28,8 @@ struct ItemView: View {
             Form {
                 //title section
                 Section {
-                    TextField("title", text: $title)
-                    TextField("remark", text: $remark, axis: .vertical)
+                    TextField("title", text: $itemViewModel.item.title)
+                    TextField("remark", text: $itemViewModel.item.remark, axis: .vertical)
                         .multilineTextAlignment(.leading)
                         .lineLimit(5...100)
                     
@@ -46,7 +37,7 @@ struct ItemView: View {
                 
                 //date time section
                 Section {
-                    Toggle(isOn: $toggleAllDay, label: {
+                    Toggle(isOn: $itemViewModel.item.allDay, label: {
                         Label("All day", systemImage: "clock.fill")
                             .labelStyle(SettingIconStyle(bgColor: .blue))
                     })
@@ -61,17 +52,17 @@ struct ItemView: View {
                                 toggleState(value: &showEndDatePicker)
                                 toggleState(value: &showEndTimePicker)
                             }, label: {
-                                Text(startDateTime.formatted(date: .numeric, time: .omitted))
+                                Text(itemViewModel.item.startTime.formatted(date: .numeric, time: .omitted))
                             })
                             
-                            if !toggleAllDay {
+                            if !itemViewModel.item.allDay {
                                 Button(action: {
                                     showStartTimePicker.toggle()
                                     toggleState(value: &showStartDatePicker)
                                     toggleState(value: &showEndDatePicker)
                                     toggleState(value: &showEndTimePicker)
                                 }, label: {
-                                    Text(startDateTime.formatted(date: .omitted, time: .shortened))
+                                    Text(itemViewModel.item.startTime.formatted(date: .omitted, time: .shortened))
                                 })
                             }
                         }
@@ -82,7 +73,7 @@ struct ItemView: View {
                     if showStartDatePicker {
                         DatePicker(
                             "Start Date",
-                            selection: $startDateTime,
+                            selection: $itemViewModel.item.startTime,
                             displayedComponents: [.date]
                         )
                         .datePickerStyle(.graphical)
@@ -90,7 +81,7 @@ struct ItemView: View {
                     
                     
                     if showStartTimePicker {
-                        DatePicker("Start Time", selection: $startDateTime, displayedComponents: .hourAndMinute)
+                        DatePicker("Start Time", selection: $itemViewModel.item.startTime, displayedComponents: .hourAndMinute)
                             .datePickerStyle(.wheel)
                     }
                     
@@ -105,17 +96,17 @@ struct ItemView: View {
                                 toggleState(value: &showStartDatePicker)
                                 toggleState(value: &showStartTimePicker)
                             }, label: {
-                                Text(endDateTime.formatted(date: .numeric, time: .omitted))
+                                Text(itemViewModel.item.endTime.formatted(date: .numeric, time: .omitted))
                             })
                             
-                            if !toggleAllDay {
+                            if !itemViewModel.item.allDay {
                                 Button(action: {
                                     showEndTimePicker.toggle()
                                     toggleState(value: &showEndDatePicker)
                                     toggleState(value: &showStartDatePicker)
                                     toggleState(value: &showStartTimePicker)
                                 }, label: {
-                                    Text(endDateTime.formatted(date: .omitted, time: .shortened))
+                                    Text(itemViewModel.item.endTime.formatted(date: .omitted, time: .shortened))
                                 })
                             }
                         }
@@ -126,7 +117,7 @@ struct ItemView: View {
                     if showEndDatePicker {
                         DatePicker(
                             "Start Date",
-                            selection: $endDateTime,
+                            selection: $itemViewModel.item.endTime,
                             displayedComponents: [.date]
                         )
                         .datePickerStyle(.graphical)
@@ -134,14 +125,14 @@ struct ItemView: View {
                     
                     
                     if showEndTimePicker {
-                        DatePicker("Start Time", selection: $endDateTime, displayedComponents: .hourAndMinute)
+                        DatePicker("Start Time", selection: $itemViewModel.item.endTime, displayedComponents: .hourAndMinute)
                             .datePickerStyle(.wheel)
                     }
                 }
                 
                 //remind section
                 Section {
-                    Picker(selection: $selectedRemind, content: {
+                    Picker(selection: $itemViewModel.item.remind, content: {
                         ForEach(Remind.allCases) { item in
                             Text(item.rawValue)
                             if item == .none || item == .sixMonth {
@@ -152,27 +143,15 @@ struct ItemView: View {
                         Label("Remind", systemImage: "bell.fill")
                             .labelStyle(SettingIconStyle(bgColor: .purple))
                     })
-                    
-//                    Picker(selection: $selectedRemind, content: {
-//                        ForEach(Remind.allCases) { item in
-//                            Text(item.rawValue)
-//                            if item == .none || item == .sixMonth {
-//                                Divider()
-//                            }
-//                        }
-//                    }, label: {
-//                        Label("Repeat", systemImage: "repeat")
-//                            .labelStyle(ColorfulIconLabelStyle(bgColor: .gray))
-//                    })
                 }
                 
                 //flag priority section
                 Section {
-                    Toggle(isOn: $toggleFlag, label: {
+                    Toggle(isOn: $itemViewModel.item.flag, label: {
                         Label("Flag", systemImage: "flag.fill")
                             .labelStyle(SettingIconStyle(bgColor: .yellow))
                     })
-                    Picker(selection: $selectedPriority, content: {
+                    Picker(selection: $itemViewModel.item.priority, content: {
                         ForEach(Priority.allCases) { item in
                             Text(item.rawValue)
                             if item == .none {
@@ -194,11 +173,15 @@ struct ItemView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done", action: {
-                        saveListItem()
+                        itemViewModel.save()
                         dismiss()
                     })
                 }
             }
+            .confirmationDialog("", isPresented: $showCancelConfirm, actions: {
+                Button("Drop change", role: .destructive, action: { dismiss() })
+                Button("Cancel", role: .cancel, action: { showCancelConfirm.toggle() })
+            })
             
         }
     }
@@ -208,25 +191,11 @@ struct ItemView: View {
             value.toggle()
         }
     }
-    
-    func saveListItem() {
-        if toggleAllDay {
-            startDateTime = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: startDateTime)!
-            endDateTime = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: endDateTime)!
-        }
-        let createTime = Date()
-        let item = Item(title: title, remark: remark, allDay: toggleAllDay, startTime: startDateTime, endTime: endDateTime, remind: selectedRemind, repeatInfo: RepeatEnum.none, flag: toggleFlag, priority: selectedPriority, parentListId: itemList.id, isDone: false, createTime: createTime, updateTime: createTime)
-        modelContext.insert(item)
-        itemList.items.append(item)
-        do {
-            try modelContext.save()
-            print("Item saved successfully.")
-        } catch {
-            print("Failed to save item: \(error)")
-        }
-    }
 }
 
 #Preview {
-    ItemView(itemList: ItemList.sampleData)
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Item.self, ItemList.self, configurations: config)
+    let item = Item(title: "", remark: "")
+    return ItemView(itemViewModel: ItemViewModel(item: item, itemList: ItemList.sampleData, modelContext: container.mainContext, openMode: .new))
 }

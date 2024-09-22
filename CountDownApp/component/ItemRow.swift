@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct ItemRow: View {
+    @Environment(\.modelContext) var modelContext
     
     var item: Item
+    var itemList: ItemList
+    
+    @State private var showItemViewSheet = false
     
     var body: some View {
         VStack {
@@ -32,6 +36,9 @@ struct ItemRow: View {
                         Image(systemName: "checkmark.circle")
                             .foregroundStyle(.green)
                             .font(.title2)
+                    } else if item.isUpcoming {
+                        Text("\(Calendar.current.dateComponents([.day], from: Date(), to: item.startTime).day!)")
+                            .foregroundStyle(.blue)
                     } else if item.isInprogress() {
                         CustomProgressView(color: .green, progress: item.getProgress())
                             .frame(width: 40)
@@ -76,9 +83,31 @@ struct ItemRow: View {
                 ProgressView(value: item.getProgress(), total: 1).tint(.green)
             }
         }
+        .swipeActions(edge: .leading, allowsFullSwipe: true, content: {
+            Button(item.isDone ? "Mark as Undone" : "Mark as Done", systemImage: item.isDone ? "xmark" : "checkmark", action: {
+                item.isDone = !item.isDone
+            })
+            .tint(item.isDone ? Color.red : Color.green)
+        })
+        .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+            Button("Delete", systemImage: "trash", role: .destructive, action: {
+                itemList.removeItem(item: item)
+                modelContext.delete(item)
+            })
+        })
+        .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+            Button("Flag", systemImage: item.flag ? "flag.slash.fill" : "flag.fill", action: { item.flag = !item.flag })
+                .tint(.orange)
+        })
+        .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+            Button("Info", systemImage: "info.circle.fill", action: { showItemViewSheet.toggle() })
+        })
+        .sheet(isPresented: $showItemViewSheet, content: {
+            ItemView(itemViewModel: ItemViewModel(item: item, itemList: itemList, modelContext: modelContext, openMode: .edit))
+        })
     }
 }
 
 #Preview {
-    ItemRow(item: Item.sampleData)
+    ItemRow(item: Item(title: "", remark: ""), itemList: ItemList.sampleData)
 }
