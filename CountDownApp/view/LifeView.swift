@@ -137,10 +137,18 @@ struct LifeView: View {
     }
     
     func eventRow(event: MyEvent) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 0) {
             Text(event.title).font(.system(.title2, design: .rounded, weight: .bold))
             HStack(alignment: .firstTextBaseline) {
-                Text("\(Date().formatted(date: .numeric, time: .omitted))")
+                HStack {
+                    Text(event.startTime.formatted(date: .numeric, time: event.allDay ? .omitted : .shortened))
+                    VStack {
+                        Divider()
+                    }
+                    .frame(width: 20)
+                    Text(event.endTime.formatted(date: .numeric, time: event.allDay ? .omitted : .shortened))
+                }
+                .font(.caption)
                 Spacer()
                 if event.isUpcoming {
                     Text("\(event.daysToStart)").font(.title3).bold().foregroundStyle(.green)
