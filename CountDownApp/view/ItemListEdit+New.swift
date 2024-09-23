@@ -15,6 +15,7 @@ struct ItemListInfoView: View {
     
     @Bindable var itemListViewModel: ItemListViewModel
     @State private var showCancelConfirm = false
+    @State private var showValidationAlert = false
     
     let gridItemLayout = [GridItem(.adaptive(minimum: 44))]
     
@@ -103,14 +104,21 @@ struct ItemListInfoView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save", action: {
-                        itemListViewModel.save()
-                        dismiss()
+                        if itemListViewModel.itemList.title.isEmpty {
+                            showValidationAlert.toggle()
+                        } else {
+                            itemListViewModel.save()
+                            dismiss()
+                        }
                     })
                 }
             }
             .confirmationDialog("", isPresented: $showCancelConfirm, actions: {
                 Button("Drop change", role: .destructive, action: { dismiss() })
                 Button("Cancel", role: .cancel, action: { showCancelConfirm.toggle() })
+            })
+            .alert("Please input list name", isPresented: $showValidationAlert, actions: {
+                Button("OK", action: { showValidationAlert.toggle() })
             })
         }
     }
