@@ -17,16 +17,9 @@ struct ListRow: View {
             VStack(alignment: .leading) {
                 Text(itemList.title)
                     .font(.title3)
-                if !itemList.items.isEmpty {
-                    HStack(spacing: 10) {
-                        Text("\(itemList.items.filter({ $0.isInprogress() }).count) Ongoing")
-                        Text("\(itemList.items.filter({ $0.isOverTime() }).count) Overtime")
-                    }
-                    .font(.subheadline)
-                    .foregroundStyle(.gray)
-                }
             }
         }
+        .padding(.vertical, 4)
     }
 }
 
