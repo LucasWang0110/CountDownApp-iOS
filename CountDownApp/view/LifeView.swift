@@ -64,6 +64,11 @@ struct LifeView: View {
                             }
                             NavigationLink(destination: MemoryDayDisplayView(memoryDay: item), label: { EmptyView() }).opacity(0)
                         }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button("Delete", systemImage: "trash", role: .destructive, action: {
+                                modelContext.delete(item)
+                            })
+                        }
                     }
                 }, header: {
                     Text("Memory Days").SectionHeaderStyle()
