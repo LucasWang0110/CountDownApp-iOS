@@ -67,11 +67,14 @@ struct AllItemView: View {
                     Text(item.endTime.formatted(date: .numeric, time: item.allDay ? .omitted : .shortened))
                 }
                 Spacer()
+                if item.isUpcoming {
+                    Text("\(Calendar.current.dateComponents([.day], from: item.startTime, to: Date()).day!) days").foregroundStyle(.blue)
+                }
                 if item.isDone {
                     Image(systemName: "checkmark").foregroundStyle(.green)
                 }
                 if item.isInprogress() {
-                    Text(String(format: "%.f%%", item.getProgress() * 100))
+                    Text(String(format: "%.f%%", item.getProgress() * 100)).foregroundStyle(.green)
                 }
                 if item.isOverTime() {
                     Text("\(Calendar.current.dateComponents([.day], from: item.endTime, to: Date()).day!) days").foregroundStyle(.red)
