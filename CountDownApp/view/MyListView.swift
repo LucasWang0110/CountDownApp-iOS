@@ -25,6 +25,15 @@ struct MyListView: View {
     @State private var selectedType: SectionType? = nil
     @State private var isNavigating = false
     
+    var ongingCount: Int { items.filter{ $0.isInprogress() }.count }
+    var overtimeCount: Int{ items.filter{ $0.isOverTime() }.count }
+    var flageCount: Int{ items.filter{ $0.flag }.count }
+    var dayOfTheMonth: Int {
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: Date())
+        return day
+    }
+    
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     @State var path = NavigationPath()
 
@@ -34,19 +43,19 @@ struct MyListView: View {
                 //total section
                 Section {
                     LazyVGrid(columns: columns) {
-                        ListCard(icon: { CircleSymbolWithText(bgColor: .green, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Ongoing")
+                        ListCard(icon: { CircleSymbolWithText(bgColor: .green, symbolNmae: "note", dispalyValue: dayOfTheMonth) }, cardValue: ongingCount, cardTitle: "Ongoing")
                             .onTapGesture{
                                 path.append(SectionType.ongoing)
                             }
-                        ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "clock.badge.xmark") }, cardValue: 12, cardTitle: "Overtime")
+                        ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "clock.badge.xmark") }, cardValue: overtimeCount, cardTitle: "Overtime")
                             .onTapGesture{
                                 path.append(SectionType.overTime)
                             }
-                        ListCard(icon: { CircleSymbol(bgColor: .blue, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Total")
+                        ListCard(icon: { CircleSymbol(bgColor: .blue, symbolNmae: "tray.fill") }, cardValue: items.count, cardTitle: "Total")
                             .onTapGesture{
                                 path.append(SectionType.total)
                             }
-                        ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Flag")
+                        ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: flageCount, cardTitle: "Flag")
                             .onTapGesture{
                                 path.append(SectionType.flag)
                             }
@@ -79,9 +88,6 @@ struct MyListView: View {
                     Text(LocalizedStringKey("My List"))
                         .textCase(.none)
                 })
-                .sheet(isPresented: $displayListInfoSheet, content: {
-                    ItemListInfoView(itemListViewModel: ItemListViewModel(itemList: currentList, modelContext: modelContext, openMode: .edit))
-                })
             
             }
             .navigationDestination(for: SectionType.self) { type in
@@ -103,6 +109,9 @@ struct MyListView: View {
             .sheet(isPresented: $displayNewItemListSheet) {
                 ItemListInfoView(itemListViewModel: ItemListViewModel(itemList: ItemList(title: "", themeColor: sampleColors[0].toHex()!, icon: sampleSymbols[0]), modelContext: modelContext, openMode: .new))
             }
+            .sheet(isPresented: $displayListInfoSheet, content: {
+                ItemListInfoView(itemListViewModel: ItemListViewModel(itemList: currentList, modelContext: modelContext, openMode: .edit))
+            })
         }
     }
     
