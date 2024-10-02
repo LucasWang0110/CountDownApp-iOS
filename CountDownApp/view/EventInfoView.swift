@@ -177,7 +177,7 @@ struct EventInfoView: View {
                     }
                 }
             }
-            .navigationTitle(Text("New Event"))
+            .navigationTitle(Text(eventViewModel.openMode == .new ? "New Event" : "Information"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction, content: {

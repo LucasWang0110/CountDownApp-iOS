@@ -165,7 +165,7 @@ struct ItemView: View {
                 }
             }
             .listSectionSpacing(20)
-            .navigationTitle(Text("New Item"))
+            .navigationTitle(Text(itemViewModel.openMode == .new ? "New Item" : "Information"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
