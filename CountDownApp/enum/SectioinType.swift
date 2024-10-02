@@ -7,6 +7,9 @@
 
 import Foundation
 
-enum SectionType: String, CaseIterable, Hashable {
+enum SectionType: String, CaseIterable, Hashable, Identifiable {
+    var id: Self {
+        return self
+    }
     case total, ongoing, flag, overTime
 }

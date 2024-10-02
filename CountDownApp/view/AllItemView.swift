@@ -23,9 +23,11 @@ struct AllItemView: View {
     var body: some View {
         List {
             ForEach(Array(itemList.enumerated()), id:\.offset) { index, item in
-                if !item.items.isEmpty {
+                let filteredItems = filterItems(items: item.items)
+                                
+                if !filteredItems.isEmpty {
                     Section(isExpanded: $expandedSections[index], content: {
-                        ForEach(item.items, id:\.id) { it in
+                        ForEach(filteredItems, id:\.id) { it in
                             itemRow(item: it)
                         }
                     }, header: {
@@ -34,9 +36,22 @@ struct AllItemView: View {
                 }
             }
         }
-        .navigationTitle(LocalizedStringKey("All"))
+        .navigationTitle(LocalizedStringKey("\(sectionType.rawValue)"))
         .navigationBarTitleDisplayMode(.large)
         .listStyle(.sidebar)
+    }
+    
+    func filterItems(items: [Item]) -> [Item] {
+        switch sectionType {
+        case .ongoing:
+            return items.filter { $0.isInprogress() }
+        case .flag:
+            return items.filter { $0.flag }
+        case .overTime:
+            return items.filter { $0.isOverTime() }
+        case .total:
+            return items
+        }
     }
     
     func itemRow(item: Item) -> some View {

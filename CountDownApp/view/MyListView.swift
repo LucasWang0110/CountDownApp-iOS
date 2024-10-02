@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-
-import SwiftUI
 import SwiftData
 
 struct MyListView: View {
@@ -28,37 +26,30 @@ struct MyListView: View {
     @State private var isNavigating = false
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    @State var path = NavigationPath()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List {
                 //total section
                 Section {
                     LazyVGrid(columns: columns) {
-                        Button(action: {
-                            selectedType = .ongoing
-                            isNavigating = true
-                        }, label: {
-                            ListCard(icon: { CircleSymbolWithText(bgColor: .green, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Ongoing")
-                        })
-                        Button(action: {
-                            selectedType = .overTime
-                            isNavigating = true
-                        }, label: {
-                            ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "clock.badge.xmark") }, cardValue: 12, cardTitle: "Overtime")
-                        })
-                        Button(action: {
-                            selectedType = .total
-                            isNavigating = true
-                        }, label: {
-                            ListCard(icon: { CircleSymbol(bgColor: .blue, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Total")
-                        })
-                        Button(action: {
-                            selectedType = .flag
-                            isNavigating = true
-                        }, label: {
-                            ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Flag")
-                        })
+                        ListCard(icon: { CircleSymbolWithText(bgColor: .green, symbolNmae: "note", dispalyValue: 3) }, cardValue: 18, cardTitle: "Ongoing")
+                            .onTapGesture{
+                                path.append(SectionType.ongoing)
+                            }
+                        ListCard(icon: { CircleSymbol(bgColor: .red, symbolNmae: "clock.badge.xmark") }, cardValue: 12, cardTitle: "Overtime")
+                            .onTapGesture{
+                                path.append(SectionType.overTime)
+                            }
+                        ListCard(icon: { CircleSymbol(bgColor: .blue, symbolNmae: "tray.fill") }, cardValue: 12, cardTitle: "Total")
+                            .onTapGesture{
+                                path.append(SectionType.total)
+                            }
+                        ListCard(icon: { CircleSymbol(bgColor: .orange, symbolNmae: "flag.fill") }, cardValue: 12, cardTitle: "Flag")
+                            .onTapGesture{
+                                path.append(SectionType.flag)
+                            }
                     }
                 }
                 .listRowBackground(Color.clear)
@@ -93,11 +84,9 @@ struct MyListView: View {
                 })
             
             }
-            .navigationDestination(isPresented: $isNavigating, destination: {
-                if let selectedType = selectedType {
-                    AllItemView(sectionType: selectedType, itemList: itemList)
-                }
-            })
+            .navigationDestination(for: SectionType.self) { type in
+                AllItemView(sectionType: type, itemList: itemList)
+            }
             .background(Color(uiColor: .secondarySystemBackground))
             .navigationTitle(Text("My tasks"))
             .searchable(text: $searchText)

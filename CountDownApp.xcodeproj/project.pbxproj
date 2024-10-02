@@ -309,8 +309,8 @@
 				A059AD602C5F6A8A00A12DAB /* RepeatEnum.swift */,
 				A059AD612C5F6A8A00A12DAB /* Priority.swift */,
 				A059AD622C5F6A8A00A12DAB /* Remind.swift */,
-				A0E893FE2C7F623800BCDD9F /* SectioinType.swift */,
 				A0E894052C835F9C00BCDD9F /* OpenMode.swift */,
+				A0E893FE2C7F623800BCDD9F /* SectioinType.swift */,
 			);
 			path = enum;
 			sourceTree = "<group>";
@@ -413,6 +413,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = A059AD1D2C5BC4F900A12DAB;
 			packageReferences = (
