@@ -185,6 +185,7 @@ struct EventInfoView: View {
                         eventViewModel.save()
                         dismiss()
                     })
+                    .disabled(eventViewModel.event.title.isEmpty)
                 })
             }
             .photosPicker(isPresented: $showGallery, selection: $selectedItems, maxSelectionCount: 20, matching: .images)
@@ -193,7 +194,6 @@ struct EventInfoView: View {
                     Task {
                         if let data = try? await item.loadTransferable(type: Data.self), !eventViewModel.event.images.contains(data) {
                             eventViewModel.event.images.append(data)
-                            print("Added image. Total images: \(eventViewModel.event.images.count)")
                         }
                     }
                 }

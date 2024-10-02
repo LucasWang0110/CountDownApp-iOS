@@ -176,6 +176,7 @@ struct ItemView: View {
                         itemViewModel.save()
                         dismiss()
                     })
+                    .disabled(itemViewModel.item.title.isEmpty)
                 }
             }
             .confirmationDialog("", isPresented: $showCancelConfirm, actions: {

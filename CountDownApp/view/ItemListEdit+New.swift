@@ -104,13 +104,10 @@ struct ItemListInfoView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save", action: {
-                        if itemListViewModel.itemList.title.isEmpty {
-                            showValidationAlert.toggle()
-                        } else {
-                            itemListViewModel.save()
-                            dismiss()
-                        }
+                        itemListViewModel.save()
+                        dismiss()
                     })
+                    .disabled(itemListViewModel.itemList.title.isEmpty)
                 }
             }
             .confirmationDialog("", isPresented: $showCancelConfirm, actions: {
