@@ -28,10 +28,10 @@ struct AllItemView: View {
                 if !filteredItems.isEmpty {
                     Section(isExpanded: $expandedSections[index], content: {
                         ForEach(filteredItems, id:\.id) { it in
-                            itemRow(item: it)
+                            SectionRow(item: it)
                         }
                     }, header: {
-                        Text(item.title)
+                        Text(item.title).textCase(.none)
                     })
                 }
             }
@@ -53,8 +53,12 @@ struct AllItemView: View {
             return items
         }
     }
+}
+
+struct SectionRow: View {
+    var item: Item
     
-    func itemRow(item: Item) -> some View {
+    var body: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {

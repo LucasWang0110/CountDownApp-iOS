@@ -103,6 +103,15 @@ struct MyListView: View {
             }
             .background(Color(uiColor: .secondarySystemBackground))
             .searchable(text: $searchText)
+            .searchSuggestions {
+                ForEach(filteredList) { list in
+                    Section(content: {
+                        ForEach(list.items, id:\.id) { it in
+                            SectionRow(item: it)
+                        }
+                    }, header: { Text(list.title).textCase(.none) })
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("New List", systemImage: "rectangle.stack.badge.plus", action: {
