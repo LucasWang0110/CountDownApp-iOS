@@ -34,6 +34,14 @@ struct MyListView: View {
         return day
     }
     
+    var filteredList: [ItemList] {
+        itemList.filter { items in
+            items.items.contains { item in
+                item.title.contains(searchText)
+            }
+        }
+    }
+    
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     @State var path = NavigationPath()
 
