@@ -30,12 +30,28 @@ struct LifeView: View {
     @State private var expandMemorySection = true
     @State private var expandEventSection = true
     
+    var filteredLifeList: [LifeModel] {
+        guard !searchText.isEmpty else { return lifeList }
+        return lifeList.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+    }
+    
+    var filteredMemoryDayList: [MemoryDayModel] {
+        guard !searchText.isEmpty else { return memoryDayList }
+        return memoryDayList.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+    }
+    
+    var filteredEventlist: [MyEvent] {
+        guard !searchText.isEmpty else { return eventlist }
+        return eventlist.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+    }
+    
+    
     var body: some View {
         NavigationStack {
             List {
                 
                 Section (isExpanded: $expandLifeSection, content: {
-                    ForEach(lifeList) { life in
+                    ForEach(filteredLifeList) { life in
                         ZStack {
                             row(life: life)
                             NavigationLink(destination: { LifeInfoView(lifeViewModel: LifeViewModel(life: life, lifeList: lifeList, modelContext: modelContext, openMode: .edit)) }, label: { EmptyView() }).opacity(0)
@@ -47,11 +63,11 @@ struct LifeView: View {
                         }
                     }
                 }, header: {
-                    Text("Life Expectancy").SectionHeaderStyle()
+                    Text("Life Expectancy").textCase(.none)
                 })
                 
                 Section(isExpanded: $expandMemorySection, content: {
-                    ForEach(memoryDayList) { item in
+                    ForEach(filteredMemoryDayList) { item in
                         ZStack {
                             VStack(alignment: .leading, spacing: 10) {
                                 Text(item.title).font(.system(.title2, design: .rounded, weight: .bold))
@@ -71,11 +87,11 @@ struct LifeView: View {
                         }
                     }
                 }, header: {
-                    Text("Memory Days").SectionHeaderStyle()
+                    Text("Memory Day").textCase(.none)
                 })
                 
                 Section(isExpanded: $expandEventSection, content: {
-                    ForEach(eventlist, id:\.self) { event in
+                    ForEach(filteredEventlist, id:\.self) { event in
                         ZStack {
                             eventRow(event: event)
                             NavigationLink(destination: EventInfoView(eventViewModel: EventViewModel(event: event, modelContext: modelContext, openMode: .edit)), label: { EmptyView() }).opacity(0)
@@ -87,7 +103,7 @@ struct LifeView: View {
                         })
                     }
                 }, header: {
-                    Text("Upcoming Event").SectionHeaderStyle()
+                    Text("Event").textCase(.none)
                 })
                 
             }

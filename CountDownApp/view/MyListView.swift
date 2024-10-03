@@ -94,7 +94,6 @@ struct MyListView: View {
                 AllItemView(sectionType: type, itemList: itemList)
             }
             .background(Color(uiColor: .secondarySystemBackground))
-            .navigationTitle(Text("My tasks"))
             .searchable(text: $searchText)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

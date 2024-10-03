@@ -81,7 +81,7 @@ struct MemoryDayInfoView: View {
                     Button("Save", action: { 
                         memoryDayViewModel.save()
                         dismiss()
-                    })
+                    }).disabled(memoryDayViewModel.memoryDay.title.isEmpty)
                 })
             }
         }
