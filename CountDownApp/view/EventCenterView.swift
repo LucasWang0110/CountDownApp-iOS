@@ -18,41 +18,39 @@ struct EventCenterView: View {
     @State private var showActionSheet = false
     
     var body: some View {
-        NavigationStack {
-            List(eventCenterViewModel.eventsFromDatabase, id:\.self, selection: $eventCenterViewModel.selectedEvents) { item in
-                ZStack {
-                    NavigationLink(destination: EventDetailView(event: item.event)) {
-                        EmptyView()
-                    }
-                    .opacity(0)
-                    eventRow(item)
+        List(eventCenterViewModel.searchRestlt, id:\.self, selection: $eventCenterViewModel.selectedEvents) { item in
+            ZStack {
+                eventRow(item)
+                NavigationLink(destination: EventDetailView(event: item.event)) {
+                    EmptyView()
                 }
+                .opacity(0)
             }
-            .listStyle(.plain)
-            .navigationTitle(Text("Event Center"))
-            .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("search event"))
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing, content: {
-                    EditButton()
-                })
-                ToolbarItem(placement: .bottomBar, content: {
-                    if editMode?.wrappedValue.isEditing == true {
-                        Button("Add to list", action: {})
-                    }
-                })
-            }
-            .toolbar(.hidden, for: .tabBar)
-            .confirmationDialog(
-                "You already have this event in your list.",
-                isPresented: $showActionSheet,
-                titleVisibility: .visible,
-                actions: {
-                    Button("Replace", action: {})
-                    Button("Duplicate", action: {})
-                    Button("Cancel", role: .cancel, action: {})
-                })
         }
+        .listStyle(.plain)
+        .navigationTitle(Text("Event Center"))
+        .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $eventCenterViewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("search event"))
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing, content: {
+                EditButton()
+            })
+            ToolbarItem(placement: .bottomBar, content: {
+                if editMode?.wrappedValue.isEditing == true {
+                    Button("Add to list", action: {})
+                }
+            })
+        }
+        .toolbar(.hidden, for: .tabBar)
+        .confirmationDialog(
+            "You already have this event in your list.",
+            isPresented: $showActionSheet,
+            titleVisibility: .visible,
+            actions: {
+                Button("Replace", action: {})
+                Button("Duplicate", action: {})
+                Button("Cancel", role: .cancel, action: {})
+            })
     }
     
     func eventRow(_ item: EventObj) -> some View {

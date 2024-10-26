@@ -32,11 +32,20 @@ import SwiftData
     var modelContext: ModelContext
     var eventsFromDatabase: [EventObj] = []
     var selectedEvents: Set<EventObj> = []
+    var searchText = ""
     
     init(eventlist: [MyEvent], modelContext: ModelContext) {
         self.eventlist = eventlist
         self.modelContext = modelContext
         fetchEvents()
+    }
+    
+    var searchRestlt: [EventObj] {
+        if self.searchText.isEmpty {
+            return eventsFromDatabase
+        } else {
+            return eventsFromDatabase.filter { $0.event.title.contains(searchText) }
+        }
     }
     
     func fetchEvents() {
@@ -51,7 +60,7 @@ import SwiftData
     
     func addEventToLocal(_ eventObj: EventObj) {
         eventObj.isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.modelContext.insert(eventObj.event)
             eventObj.isExist = true
             eventObj.isLoading = false

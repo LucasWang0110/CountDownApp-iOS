@@ -17,13 +17,15 @@ class ItemList: Identifiable, NSCopying, Equatable, CustomStringConvertible {
     var icon: String
     var createTime: Date
     var updateTime: Date
+    var sortIndex: Int
     @Relationship(deleteRule: .cascade) var items: [Item] = []
     
-    init(title: String, themeColor: String, icon: String) {
+    init(title: String, themeColor: String, icon: String, sortIndex: Int = 0) {
         self.id = UUID().uuidString
         self.title = title
         self.themeColor = themeColor
         self.icon = icon
+        self.sortIndex = sortIndex
         self.createTime = Date()
         self.updateTime = Date()
     }
@@ -52,6 +54,7 @@ class ItemList: Identifiable, NSCopying, Equatable, CustomStringConvertible {
         Title: \(title)
         themeColor: \(themeColor)
         icon: \(icon)
+        sortIndex: \(sortIndex)
         Created At: \(createTime)
         Updated At: \(updateTime)
         """

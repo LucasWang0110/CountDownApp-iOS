@@ -142,7 +142,6 @@ struct LifeView: View {
     func row(life: LifeModel) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(life.title).font(.system(.title2, design: .rounded, weight: .bold))
-            Text("\(life.birthday.formatted(date: .numeric, time: .omitted))").foregroundStyle(.gray)
             HStack {
                 Text("\(life.remainingDays)").foregroundStyle(.red)
                 Spacer()

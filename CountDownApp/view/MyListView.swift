@@ -12,7 +12,7 @@ struct MyListView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.modelContext) private var modelContext
     
-    @Query private var itemList: [ItemList]
+    @Query(sort: \ItemList.sortIndex, order: .forward) private var itemList: [ItemList]
     @Query private var items: [Item]
     
     @State private var searchText = ""
@@ -24,6 +24,8 @@ struct MyListView: View {
     
     @State private var selectedType: SectionType? = nil
     @State private var isNavigating = false
+    
+    @State private var editableItemList: [ItemList] = []
     
     var ongingCount: Int { items.filter{ $0.isInprogress() }.count }
     var overtimeCount: Int{ items.filter{ $0.isOverTime() }.count }
@@ -91,6 +93,7 @@ struct MyListView: View {
                                 }
                         })
                     }
+                    .onMove(perform: moveList)
                     
                 }, header: {
                     Text(LocalizedStringKey("My List"))
@@ -119,15 +122,18 @@ struct MyListView: View {
                     })
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("More", systemImage: "ellipsis.circle", action: {})
+                    EditButton()
                 }
             }
             .sheet(isPresented: $displayNewItemListSheet) {
-                ItemListInfoView(itemListViewModel: ItemListViewModel(itemList: ItemList(title: "", themeColor: sampleColors[0].toHex()!, icon: sampleSymbols[0]), modelContext: modelContext, openMode: .new))
+                ItemListInfoView(itemListViewModel: ItemListViewModel(itemList: ItemList(title: "", themeColor: sampleColors[0].toHex()!, icon: sampleSymbols[0], sortIndex: itemList.count), modelContext: modelContext, openMode: .new))
             }
             .sheet(isPresented: $displayListInfoSheet, content: {
                 ItemListInfoView(itemListViewModel: ItemListViewModel(itemList: currentList, modelContext: modelContext, openMode: .edit))
             })
+            .onAppear {
+                editableItemList = itemList
+            }
         }
     }
     
@@ -141,6 +147,15 @@ struct MyListView: View {
     func deleteList(itemList: ItemList) {
         withAnimation {
             modelContext.delete(itemList)
+        }
+    }
+    
+    func moveList(from source: IndexSet, to destination: Int) {
+        withAnimation {
+            editableItemList.move(fromOffsets: source, toOffset: destination)
+            for (index, item) in editableItemList.enumerated() {
+                item.sortIndex = index
+            }
         }
     }
 }
